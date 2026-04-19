@@ -326,15 +326,11 @@ body {
 /* ===== Category Chips ===== */
 .cat-scroll {
   display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-bottom: 10px;
-  scrollbar-width: none;
 }
-.cat-scroll::-webkit-scrollbar { display: none; }
 .cat-chip {
-  flex-shrink: 0;
   padding: 5px 12px;
   border-radius: 99px;
   border: 1px solid var(--border);
