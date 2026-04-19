@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פאנל ניהול — יומן אכילה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Admin-specific overrides ── */
+    .admin-wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 80px; }
+    .admin-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .admin-header img { width: 40px; height: 40px; object-fit: contain; border-radius: 10px; }
+    .admin-header h1 { font-size: 1.3rem; font-weight: 700; margin: 0; }
+
+    /* Login */
+    .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px; max-width: 360px; margin: 60px auto; text-align: center; }
+    .login-box h2 { margin: 0 0 24px; }
+    .login-box input { width: 100%; box-sizing: border-box; margin-bottom: 16px; }
+    .login-error { color: var(--cal); font-size: 0.85rem; margin-top: -8px; margin-bottom: 12px; display: none; }
+
+    /* Section card */
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+    .section-card h2 { font-size: 1rem; font-weight: 700; margin: 0 0 16px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* Create form grid */
+    .create-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .create-grid .span2 { grid-column: span 2; }
+
+    /* Client list */
+    .client-row { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .client-row:last-child { border-bottom: none; }
+    .client-info { flex: 1; min-width: 0; }
+    .client-name { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .client-date { font-size: 0.75rem; color: var(--text-muted); }
+    .client-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: inherit; transition: background 0.15s; }
+    .btn-sm:hover { background: var(--border); }
+    .btn-sm.danger { border-color: var(--cal); color: var(--cal); }
+    .btn-sm.danger:hover { background: rgba(255,107,107,.12); }
+    .btn-sm.primary { border-color: var(--primary); color: var(--primary); }
+    .btn-sm.primary:hover { background: rgba(108,92,231,.15); }
+
+    /* Goals editor inline */
+    .goals-editor { display: none; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .goals-editor.open { display: grid; }
+    .goals-editor label { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px; }
+    .goals-editor input { width: 100%; box-sizing: border-box; }
+    .goals-editor .save-goals-btn { grid-column: span 2; }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 32px; color: var(--text-muted); }
+
+    /* Toast (reuse app toast) */
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <div style="font-size:2.5rem;margin-bottom:8px;">🔐</div>
+      <h2>כניסת תזונאי</h2>
+      <input type="password" id="passwordInput" class="form-input" placeholder="סיסמת ניהול" />
+      <div class="login-error" id="loginError">סיסמה שגויה</div>
+      <button class="btn btn-primary btn-full" id="loginBtn">כניסה</button>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="adminPanel" style="display:none;">
+    <div class="admin-wrap">
+      <div class="admin-header">
+        <img src="logo.png" alt="לוגו" onerror="this.style.display='none'" />
+        <h1>פאנל ניהול לקוחות</h1>
+      </div>
+
+      <!-- Create new client -->
+      <div class="section-card">
+        <h2>לקוח חדש</h2>
+        <div class="create-grid">
+          <div class="span2">
+            <div class="form-group">
+              <label class="form-label">שם הלקוח</label>
+              <input type="text" id="newName" class="form-input" placeholder="ישראל ישראלי" />
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">קלוריות</label>
+              <input type="number" id="newCalories" class="form-input" value="2000" />
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">חלבון (גרם)</label>
+              <input type="number" id="newProtein" class="form-input" value="150" />
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">פחמימות (גרם)</label>
+              <input type="number" id="newCarbs" class="form-input" value="200" />
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="form-label">שומן (גרם)</label>
+              <input type="number" id="newFat" class="form-input" value="65" />
+            </div>
+          </div>
+          <div class="span2">
+            <div class="form-group">
+              <label class="form-label">הערה (אופציונלי)</label>
+              <input type="text" id="newNote" class="form-input" placeholder="למשל: דיאטה קלורית" />
+            </div>
+          </div>
+          <div class="span2">
+            <button class="btn btn-primary btn-full" id="createClientBtn">צור לקוח וקבל קישור</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client list -->
+      <div class="section-card">
+        <h2>לקוחות רשומים</h2>
+        <div id="clientList"><div class="empty-state">טוען...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <script src="supabase.js"></script>
+  <script>
+  // ── Helpers ──
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (type === 'error' ? ' toast-error' : '');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+
+  // ── Auth ──
+  const params = new URLSearchParams(location.search);
+  const passParam = params.get('admin');
+
+  document.getElementById('loginBtn').addEventListener('click', tryLogin);
+  document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+  function tryLogin() {
+    const val = document.getElementById('passwordInput').value.trim();
+    if (val === ADMIN_PASSWORD) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = '';
+      loadClients();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  // Auto-login if password in URL param
+  if (passParam === ADMIN_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = '';
+    loadClients();
+  }
+
+  // ── Load clients ──
+  async function loadClients() {
+    const listEl = document.getElementById('clientList');
+    listEl.innerHTML = '<div class="empty-state">טוען...</div>';
+    const clients = await adminGetAllClients();
+    if (!clients.length) {
+      listEl.innerHTML = '<div class="empty-state">אין לקוחות עדיין</div>';
+      return;
+    }
+    listEl.innerHTML = clients.map(c => `
+      <div class="client-row" data-id="${c.id}">
+        <div class="client-info">
+          <div class="client-name">${c.name}</div>
+          <div class="client-date">${formatDate(c.created_at)}${c.note ? ' · ' + c.note : ''}</div>
+        </div>
+        <div class="client-actions">
+          <button class="btn-sm primary copy-btn" data-token="${c.token}">העתק קישור</button>
+          <button class="btn-sm edit-btn">ערוך יעדים</button>
+          <button class="btn-sm danger delete-btn">מחק</button>
+        </div>
+      </div>
+      <div class="goals-editor" id="goals-${c.id}">
+        <div>
+          <label>קלוריות</label>
+          <input type="number" class="form-input g-cal" value="${c.goals?.calories ?? 2000}" />
+        </div>
+        <div>
+          <label>חלבון (גרם)</label>
+          <input type="number" class="form-input g-protein" value="${c.goals?.protein ?? 150}" />
+        </div>
+        <div>
+          <label>פחמימות (גרם)</label>
+          <input type="number" class="form-input g-carbs" value="${c.goals?.carbs ?? 200}" />
+        </div>
+        <div>
+          <label>שומן (גרם)</label>
+          <input type="number" class="form-input g-fat" value="${c.goals?.fat ?? 65}" />
+        </div>
+        <button class="btn btn-primary save-goals-btn" data-id="${c.id}">שמור יעדים</button>
+      </div>
+    `).join('');
+  }
+
+  // Single delegated listener on the static parent (attached once)
+  document.getElementById('clientList').addEventListener('click', async e => {
+    const row = e.target.closest('.client-row');
+    const clientId = row?.dataset.id;
+
+    if (e.target.classList.contains('copy-btn')) {
+      const url = buildClientURL(e.target.dataset.token);
+      await navigator.clipboard.writeText(url);
+      showToast('הקישור הועתק ✓');
+    }
+
+    if (e.target.classList.contains('edit-btn') && clientId) {
+      const editor = document.getElementById('goals-' + clientId);
+      editor.classList.toggle('open');
+    }
+
+    if (e.target.classList.contains('delete-btn') && clientId) {
+      const name = row.querySelector('.client-name').textContent;
+      if (!confirm(`למחוק את ${name}? כל הנתונים שלו יימחקו לצמיתות.`)) return;
+      await adminDeleteClient(clientId);
+      showToast('הלקוח נמחק');
+      loadClients();
+    }
+
+    if (e.target.classList.contains('save-goals-btn')) {
+      const id = e.target.dataset.id;
+      const editor = document.getElementById('goals-' + id);
+      const goals = {
+        calories: +editor.querySelector('.g-cal').value,
+        protein:  +editor.querySelector('.g-protein').value,
+        carbs:    +editor.querySelector('.g-carbs').value,
+        fat:      +editor.querySelector('.g-fat').value,
+      };
+      await adminUpdateGoals(id, goals);
+      editor.classList.remove('open');
+      showToast('היעדים עודכנו ✓');
+    }
+  });
+  }
+
+  // ── Create client ──
+  document.getElementById('createClientBtn').addEventListener('click', async () => {
+    const name = document.getElementById('newName').value.trim();
+    if (!name) { showToast('יש להזין שם לקוח', 'error'); return; }
+    const goals = {
+      calories: +document.getElementById('newCalories').value || 2000,
+      protein:  +document.getElementById('newProtein').value  || 150,
+      carbs:    +document.getElementById('newCarbs').value    || 200,
+      fat:      +document.getElementById('newFat').value      || 65,
+    };
+    const note = document.getElementById('newNote').value.trim();
+    const btn = document.getElementById('createClientBtn');
+    btn.disabled = true; btn.textContent = 'יוצר...';
+    const client = await adminCreateClient(name, goals, note);
+    btn.disabled = false; btn.textContent = 'צור לקוח וקבל קישור';
+    if (!client) { showToast('שגיאה ביצירת לקוח', 'error'); return; }
+    const url = buildClientURL(client.token);
+    await navigator.clipboard.writeText(url);
+    showToast(`"${name}" נוצר! הקישור הועתק ✓`);
+    document.getElementById('newName').value = '';
+    document.getElementById('newNote').value = '';
+    loadClients();
+  });
+  </script>
+</body>
+</html>

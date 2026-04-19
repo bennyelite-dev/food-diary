@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>יומן אכילה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-logo">
+      <img src="logo.png" alt="לוגו" class="loading-logo-img" onerror="this.style.display='none'" />
+      <div class="loading-spinner-ring"></div>
+    </div>
+    <p class="loading-text">טוען נתונים...</p>
+  </div>
+
+  <!-- No Access Screen -->
+  <div id="noAccessScreen" class="no-access-screen" style="display:none;">
+    <div class="no-access-box">
+      <div style="font-size:3rem;">🔒</div>
+      <h2>אין גישה</h2>
+      <p>הקישור שלך אינו תקין.<br/>פנה לתזונאי שלך לקישור אישי.</p>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div id="app" style="display:none;">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <img src="logo.png" alt="לוגו" class="header-logo" onerror="this.style.display='none'" />
+          <span class="logo-text" id="clientNameDisplay">יומן אכילה</span>
+        </div>
+        <div class="header-date" id="headerDate"></div>
+      </div>
+    </header>
+
+    <main class="main-content" id="mainContent"></main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-tab="dashboard">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">דשבורד</span>
+      </button>
+      <button class="nav-btn" data-tab="add">
+        <span class="nav-icon">➕</span>
+        <span class="nav-label">הוספה</span>
+      </button>
+      <button class="nav-btn" data-tab="foods">
+        <span class="nav-icon">🗄️</span>
+        <span class="nav-label">מזונות</span>
+      </button>
+      <button class="nav-btn" data-tab="stats">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">סטטיסטיקות</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Goals Modal -->
+  <div class="modal-overlay" id="goalsModal" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>יעדים יומיים</h3>
+        <button class="modal-close" id="closeGoalsModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label>קלוריות</label><input type="number" id="goalCalories" /></div>
+        <div class="form-group"><label>חלבון (גרם)</label><input type="number" id="goalProtein" /></div>
+        <div class="form-group"><label>פחמימות (גרם)</label><input type="number" id="goalCarbs" /></div>
+        <div class="form-group"><label>שומן (גרם)</label><input type="number" id="goalFat" /></div>
+        <button class="btn btn-primary btn-full" id="saveGoals">שמור יעדים</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <script src="supabase.js"></script>
+  <script src="charts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
