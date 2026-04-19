@@ -383,6 +383,41 @@ const INITIAL_FOODS = [
   { id:'vx08', name:'עלי בזיל',           category:'ירקות',          cal:23,  protein:3.2,  carbs:2.7,  fat:0.6,  unit:'100 גרם', grams:100 },
   { id:'vx09', name:'כרוב ניצנים',        category:'ירקות',          cal:43,  protein:3.4,  carbs:9,    fat:0.3,  unit:'100 גרם', grams:100 },
   { id:'vx10', name:'פטריות שיטאקי',      category:'ירקות',          cal:34,  protein:2.2,  carbs:7,    fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'vx11', name:'פטריות פורטובלו',    category:'ירקות',          cal:26,  protein:2.5,  carbs:5,    fat:0.3,  unit:'100 גרם', grams:100 },
+  { id:'vx12', name:'פטריות קרמיני',      category:'ירקות',          cal:22,  protein:2.5,  carbs:3.7,  fat:0.3,  unit:'100 גרם', grams:100 },
+  { id:'vx13', name:'פטריות אויסטר',      category:'ירקות',          cal:33,  protein:3.3,  carbs:6,    fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'vx14', name:'בטטה סגולה',         category:'ירקות',          cal:90,  protein:2,    carbs:21,   fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'vx15', name:'לפת',                category:'ירקות',          cal:28,  protein:0.9,  carbs:6.4,  fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'vx16', name:'קולרבי',             category:'ירקות',          cal:27,  protein:1.7,  carbs:6.2,  fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'vx17', name:'פנל (שומר)',          category:'ירקות',          cal:31,  protein:1.2,  carbs:7,    fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx18', name:'שורש סלרי',          category:'ירקות',          cal:42,  protein:1.5,  carbs:9,    fat:0.3,  unit:'100 גרם', grams:100 },
+  { id:'vx19', name:'שורש פטרוזיליה',     category:'ירקות',          cal:55,  protein:1.5,  carbs:12,   fat:0.6,  unit:'100 גרם', grams:100 },
+  { id:'vx20', name:'שורש ג׳ינג׳ר',       category:'ירקות',          cal:80,  protein:1.8,  carbs:18,   fat:0.8,  unit:'100 גרם', grams:100 },
+  { id:'vx21', name:'כורכום טרי',         category:'ירקות',          cal:312, protein:9.7,  carbs:67,   fat:3.2,  unit:'כפית',    grams:3   },
+  { id:'vx22', name:'בצל שאלוט',          category:'ירקות',          cal:72,  protein:2.5,  carbs:17,   fat:0.1,  unit:'יחידה',   grams:30  },
+  { id:'vx23', name:'פיקנטה (פלפל ארוך)', category:'ירקות',          cal:40,  protein:1.5,  carbs:9,    fat:0.4,  unit:'יחידה',   grams:50  },
+  { id:'vx24', name:'עלי מנגולד',         category:'ירקות',          cal:19,  protein:1.8,  carbs:3.7,  fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx25', name:'עלי חומצה',          category:'ירקות',          cal:22,  protein:2,    carbs:3.2,  fat:0.7,  unit:'100 גרם', grams:100 },
+  { id:'vx26', name:'חסה רומאית',         category:'ירקות',          cal:17,  protein:1.2,  carbs:3.3,  fat:0.3,  unit:'100 גרם', grams:100 },
+  { id:'vx27', name:'חסה איסברג',         category:'ירקות',          cal:14,  protein:0.9,  carbs:3,    fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'vx28', name:'עלי תרד תינוק',      category:'ירקות',          cal:23,  protein:2.2,  carbs:3.6,  fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'vx29', name:'מיקרוגרינס',         category:'ירקות',          cal:30,  protein:2.5,  carbs:4,    fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'vx30', name:'נבטי שעועית',        category:'ירקות',          cal:31,  protein:3,    carbs:6,    fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx31', name:'נבטי חמניות',        category:'ירקות',          cal:84,  protein:5,    carbs:7,    fat:5,    unit:'100 גרם', grams:100 },
+  { id:'vx32', name:'צנון לבן (דייקון)',   category:'ירקות',          cal:18,  protein:0.6,  carbs:4.1,  fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'vx33', name:'ירוק שוטה (פורסלן)', category:'ירקות',          cal:20,  protein:1.7,  carbs:3.4,  fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'vx34', name:'אוקרה (במיה)',        category:'ירקות',          cal:33,  protein:1.9,  carbs:7.5,  fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx35', name:'כרוב סין (בוק צ׳וי)',category:'ירקות',          cal:13,  protein:1.5,  carbs:2.2,  fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx36', name:'נאפה כרוב סיני',     category:'ירקות',          cal:16,  protein:1.2,  carbs:3,    fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx37', name:'במיה',               category:'ירקות',          cal:33,  protein:2,    carbs:7,    fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx38', name:'תרד מים (קונגפאי)',  category:'ירקות',          cal:19,  protein:2.6,  carbs:2.7,  fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'vx39', name:'כרוב ים (קולארד)',   category:'ירקות',          cal:32,  protein:3,    carbs:6,    fat:0.6,  unit:'100 גרם', grams:100 },
+  { id:'vx40', name:'עלי לוביה',          category:'ירקות',          cal:42,  protein:4.3,  carbs:7.5,  fat:0.3,  unit:'100 גרם', grams:100 },
+  { id:'vx41', name:'כוסברה (גרגרים)',    category:'ירקות',          cal:298, protein:12,   carbs:55,   fat:18,   unit:'כפית',    grams:2   },
+  { id:'vx42', name:'אורגנו טרי',         category:'ירקות',          cal:265, protein:9,    carbs:69,   fat:4.3,  unit:'כפית',    grams:1   },
+  { id:'vx43', name:'תימין טרי',          category:'ירקות',          cal:101, protein:5.6,  carbs:24,   fat:1.7,  unit:'כפית',    grams:1   },
+  { id:'vx44', name:'רוזמרין טרי',        category:'ירקות',          cal:131, protein:3.3,  carbs:21,   fat:5.9,  unit:'כפית',    grams:1   },
+  { id:'vx45', name:'מרווה טרייה',        category:'ירקות',          cal:315, protein:10,   carbs:61,   fat:12,   unit:'כפית',    grams:1   },
 
   // ─── פירות נוספים ───
   { id:'fx01', name:'אוכמניות יבשות',     category:'פירות',          cal:317, protein:0.5,  carbs:83,   fat:1,    unit:'כף',      grams:10  },
@@ -585,12 +620,12 @@ function calcEntryNutrition(food, quantityGrams) {
 // ===== DB Reset =====
 function resetFoodsDB() {
   localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-  localStorage.setItem('food_db_version', '5');
+  localStorage.setItem('food_db_version', '6');
 }
 
 (function checkDBVersion() {
-  if (localStorage.getItem('food_db_version') !== '5') {
+  if (localStorage.getItem('food_db_version') !== '6') {
     localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-    localStorage.setItem('food_db_version', '5');
+    localStorage.setItem('food_db_version', '6');
   }
 })();
