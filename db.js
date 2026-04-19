@@ -301,6 +301,21 @@ const INITIAL_FOODS = [
   { id:'sp03', name:'קריאטין',            category:'תוספי ספורט',   cal:0,   protein:0,    carbs:0,    fat:0,    unit:'כפית',    grams:5   },
   { id:'sp04', name:'גיינר',              category:'תוספי ספורט',   cal:380, protein:26,   carbs:60,   fat:3,    unit:'מנה',     grams:100 },
   { id:'sp05', name:'חטיף חלבון',         category:'תוספי ספורט',   cal:200, protein:20,   carbs:23,   fat:5,    unit:'יחידה',   grams:60  },
+  { id:'sp06', name:'אבקת חלבון קזאין',  category:'תוספי ספורט',   cal:115, protein:23,   carbs:4,    fat:1.5,  unit:'מנה',     grams:30  },
+  { id:'sp07', name:'אבקת חלבון צמחי',   category:'תוספי ספורט',   cal:110, protein:22,   carbs:5,    fat:2,    unit:'מנה',     grams:30  },
+  { id:'sp08', name:'Pre-Workout',        category:'תוספי ספורט',   cal:15,  protein:0,    carbs:3,    fat:0,    unit:'מנה',     grams:8   },
+  { id:'sp09', name:'אמינו אסידים',       category:'תוספי ספורט',   cal:20,  protein:5,    carbs:0,    fat:0,    unit:'כמוסה',   grams:5   },
+  { id:'sp10', name:'גלוטמין',            category:'תוספי ספורט',   cal:0,   protein:0,    carbs:0,    fat:0,    unit:'כפית',    grams:5   },
+  { id:'sp11', name:'אומגה 3',            category:'תוספי ספורט',   cal:45,  protein:0,    carbs:0,    fat:5,    unit:'כמוסה',   grams:5   },
+  { id:'sp12', name:'ויטמין D',           category:'תוספי ספורט',   cal:0,   protein:0,    carbs:0,    fat:0,    unit:'טיפה',    grams:1   },
+  { id:'sp13', name:'מגנזיום',            category:'תוספי ספורט',   cal:0,   protein:0,    carbs:0,    fat:0,    unit:'כמוסה',   grams:2   },
+  { id:'sp14', name:'קולגן',              category:'תוספי ספורט',   cal:40,  protein:10,   carbs:0,    fat:0,    unit:'כף',      grams:10  },
+  { id:'sp15', name:'ספירולינה',          category:'תוספי ספורט',   cal:20,  protein:4,    carbs:1.7,  fat:0.5,  unit:'כף',      grams:7   },
+  { id:'sp16', name:'המפ פרוטאין',        category:'תוספי ספורט',   cal:120, protein:15,   carbs:9,    fat:3,    unit:'מנה',     grams:30  },
+  { id:'sp17', name:'ריקברי שייק',        category:'תוספי ספורט',   cal:300, protein:25,   carbs:35,   fat:5,    unit:'מנה',     grams:100 },
+  { id:'sp18', name:'אנרגי ג׳ל',          category:'תוספי ספורט',   cal:100, protein:0,    carbs:25,   fat:0,    unit:'יחידה',   grams:32  },
+  { id:'sp19', name:'אלקטרוליטים',        category:'תוספי ספורט',   cal:5,   protein:0,    carbs:1,    fat:0,    unit:'כף',      grams:5   },
+  { id:'sp20', name:'L-Carnitine',        category:'תוספי ספורט',   cal:0,   protein:0,    carbs:0,    fat:0,    unit:'כמוסה',   grams:2   },
 
   // ─── מנות בינלאומיות ───
   { id:'in01', name:'פיצה מרגריטה',       category:'מנות בינלאומיות',cal:266, protein:11,   carbs:33,   fat:10,   unit:'פרוסה',   grams:107 },
@@ -795,12 +810,12 @@ function calcEntryNutrition(food, quantityGrams) {
 // ===== DB Reset =====
 function resetFoodsDB() {
   localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-  localStorage.setItem('food_db_version', '7');
+  localStorage.setItem('food_db_version', '8');
 }
 
 (function checkDBVersion() {
-  if (localStorage.getItem('food_db_version') !== '7') {
+  if (localStorage.getItem('food_db_version') !== '8') {
     localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-    localStorage.setItem('food_db_version', '7');
+    localStorage.setItem('food_db_version', '8');
   }
 })();
