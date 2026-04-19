@@ -615,7 +615,8 @@ function calcGoalsFromProfile(p) {
   const protein = Math.round((p.weight || 70) * protFactor);
   const fat     = Math.round((calories * 0.27) / 9);
   const carbs   = Math.max(50, Math.round((calories - protein * 4 - fat * 9) / 4));
-  return { calories, protein, carbs, fat };
+  const fiber   = Math.round(calories / 1000 * 25);
+  return { calories, protein, carbs, fat, fiber };
 }
 function calcWater(p) {
   const base    = (p.weight || 70) * 35;
@@ -750,6 +751,7 @@ function pfResults(p) {
       <div class="macro-target-card prot-tc"><div class="mt-val">${goals.protein}g</div><div class="mt-label">חלבון</div></div>
       <div class="macro-target-card carbs-tc"><div class="mt-val">${goals.carbs}g</div><div class="mt-label">פחמימות</div></div>
       <div class="macro-target-card fat-tc"><div class="mt-val">${goals.fat}g</div><div class="mt-label">שומן</div></div>
+      <div class="macro-target-card fiber-tc"><div class="mt-val">${goals.fiber}g</div><div class="mt-label">🌿 סיבים</div></div>
       <div class="macro-target-card water-tc"><div class="mt-val">${water}L</div><div class="mt-label">💧 מים</div></div>
     </div>
   </div>`;
@@ -774,15 +776,17 @@ function pfDay(plan, planIdx) {
   if (!plan) return '';
   const data = plan.plan_data || {};
   const tot  = MEAL_PLAN_ORDER.reduce((a, m) => {
-    (data[m] || []).forEach(i => { a.cal += i.cal||0; a.protein += i.protein||0; a.carbs += i.carbs||0; a.fat += i.fat||0; });
+    (data[m] || []).forEach(i => { a.cal += i.cal||0; a.protein += i.protein||0; a.carbs += i.carbs||0; a.fat += i.fat||0; a.fiber += i.fiber||0; });
     return a;
-  }, { cal:0, protein:0, carbs:0, fat:0 });
+  }, { cal:0, protein:0, carbs:0, fat:0, fiber:0 });
+  const fiberTarget = Math.round(tot.cal / 1000 * 25);
   return `
     <div class="day-totals-bar">
       <span>סה"כ: <b>${Math.round(tot.cal)}</b> קל׳</span>
       <span>חלבון: <b>${Math.round(tot.protein)}g</b></span>
       <span>פחמ׳: <b>${Math.round(tot.carbs)}g</b></span>
       <span>שומן: <b>${Math.round(tot.fat)}g</b></span>
+      <span class="fiber-total">סיבים: <b>${Math.round(tot.fiber)}g</b> / ${fiberTarget}g</span>
     </div>
     ${MEAL_PLAN_ORDER.map(m => pfMealCard(data[m]||[], m, planIdx)).join('')}`;
 }
@@ -794,7 +798,8 @@ function pfMealCard(items, meal, planIdx) {
     protein: a.protein + (i.protein||0),
     carbs:   a.carbs   + (i.carbs||0),
     fat:     a.fat     + (i.fat||0),
-  }), { cal:0, protein:0, carbs:0, fat:0 });
+    fiber:   a.fiber   + (i.fiber||0),
+  }), { cal:0, protein:0, carbs:0, fat:0, fiber:0 });
 
   return `
     <div class="meal-plan-card">
@@ -807,6 +812,7 @@ function pfMealCard(items, meal, planIdx) {
         <span style="color:var(--protein)">חל׳ ${Math.round(tot.protein)}g</span>
         <span style="color:var(--carbs)">פח׳ ${Math.round(tot.carbs)}g</span>
         <span style="color:var(--fat)">שו׳ ${Math.round(tot.fat)}g</span>
+        <span style="color:var(--fiber)">סיבים ${Math.round(tot.fiber)}g</span>
       </div>
       <div class="meal-plan-items">
         ${items.length ? items.map(it => `
@@ -923,24 +929,69 @@ function generateMealPlans(goals, p) {
   }));
 }
 
+// Fiber estimate factors (per gram of carbs in that food category)
+const FIBER_FACTORS = {
+  'ירקות':          0.28,
+  'פירות':          0.20,
+  'קטניות':         0.32,
+  'דגנים ולחם':     0.13,
+  'אגוזים וזרעים':  0.16,
+  'חטיפים בריאים':  0.10,
+  'ארוחות בית':     0.07,
+  'מאכלים ישראליים':0.06,
+};
+
+// Absolute max grams per category for sensible portion sizes
+const CAT_MAX_GRAMS = {
+  'בשר ועוף':          200,
+  'דגים ופירות ים':    200,
+  'ביצים':             180,
+  'מוצרי חלב':         250,
+  'תוספי ספורט':        60,
+  'דגנים ולחם':        200,
+  'קטניות':            250,
+  'ירקות':             300,
+  'פירות':             250,
+  'אגוזים וזרעים':      50,
+  'שמנים ושומנים':      20,
+  'ממתקים וחטיפים':     80,
+  'קינוחים ודסרטים':   120,
+  'מזון מהיר':         300,
+  'מנות בינלאומיות':   300,
+  'מאכלים ישראליים':   350,
+  'ארוחות בית':        300,
+  'רטבים ותיבול':       25,
+  'מוצרי אפייה':       100,
+};
+
+// Categories that represent a complete meal (protein+carb already included)
+const COMPLETE_MEAL_CATS = new Set(['ארוחות בית', 'מאכלים ישראליים', 'מנות בינלאומיות', 'מזון מהיר']);
+
+// Never pick these as carb/extra — they're not real food choices in that role
+const EXCLUDE_AS_CARB = new Set(['קינוחים ודסרטים', 'ממתקים וחטיפים', 'שמנים ושומנים', 'רטבים ותיבול', 'משקאות', 'תוספי ספורט']);
+
 function rotate(list, offset) {
   if (!list.length) return [];
   const i = offset % list.length;
   return [...list.slice(i), ...list.slice(0, i)];
 }
 
-function clampGrams(grams, std) {
-  return Math.max(10, Math.round(Math.max(std * 0.35, Math.min(std * 4, grams)) / 5) * 5);
+function clampGrams(grams, food) {
+  const maxG = CAT_MAX_GRAMS[food.category] || Math.round(food.grams * 3.5);
+  const minG = Math.max(10, Math.round(food.grams * 0.35));
+  return Math.max(10, Math.round(Math.min(Math.max(minG, grams), maxG) / 5) * 5);
 }
 
 function makePortion(food, grams) {
   const ratio = grams / food.grams;
+  const ff    = FIBER_FACTORS[food.category] || 0.02;
   return {
     id: food.id, name: food.name, grams,
     cal:     Math.round(food.cal     * ratio),
     protein: Math.round(food.protein * ratio * 10) / 10,
     carbs:   Math.round(food.carbs   * ratio * 10) / 10,
     fat:     Math.round(food.fat     * ratio * 10) / 10,
+    fiber:   Math.round(food.carbs   * ratio * ff * 10) / 10,
   };
 }
 
@@ -955,12 +1006,15 @@ function buildMeal(allFoods, meal, targetCal, targetProt, offset) {
   );
   if (protPool.length) {
     const pf = protPool[0];
-    const protPerGram = pf.protein / pf.grams;
-    const neededGrams = protPerGram > 0 ? (targetProt * 0.70) / protPerGram : pf.grams;
-    picked.push(makePortion(pf, clampGrams(neededGrams, pf.grams)));
+    const protPerGram  = pf.protein / pf.grams;
+    const neededGrams  = protPerGram > 0 ? (targetProt * 0.70) / protPerGram : pf.grams;
+    picked.push(makePortion(pf, clampGrams(neededGrams, pf)));
+
+    // If it's already a complete meal (rice+chicken, falafel, etc.) stop here
+    if (COMPLETE_MEAL_CATS.has(pf.category)) return picked;
   }
 
-  // 2. Carb food — fill ~60% of remaining calories, must be carb-dominant
+  // 2. Carb food — fill ~60% of remaining calories; must be carb-dominant, not junk
   const usedCal1 = picked.reduce((s, i) => s + i.cal, 0);
   const rem1     = targetCal - usedCal1;
   if (rem1 > 80) {
@@ -969,19 +1023,20 @@ function buildMeal(allFoods, meal, targetCal, targetProt, offset) {
         roles.carbs.includes(f.category) &&
         f.carbs >= f.protein &&
         f.cal > 0 &&
+        !EXCLUDE_AS_CARB.has(f.category) &&
         !picked.some(p => p.id === f.id)
       ),
       offset + 8
     );
     if (carbPool.length) {
       const cf = carbPool[0];
-      const calPerGram = cf.cal / cf.grams;
+      const calPerGram  = cf.cal / cf.grams;
       const neededGrams = calPerGram > 0 ? (rem1 * 0.60) / calPerGram : cf.grams;
-      picked.push(makePortion(cf, clampGrams(neededGrams, cf.grams)));
+      picked.push(makePortion(cf, clampGrams(neededGrams, cf)));
     }
   }
 
-  // 3. Extra (vegetable / fruit) — fill most of remaining calories
+  // 3. Extra (vegetable / fruit) — fill remaining; skip if already a complete meal
   const usedCal2 = picked.reduce((s, i) => s + i.cal, 0);
   const rem2     = targetCal - usedCal2;
   if (rem2 > 50 && roles.extras.length) {
@@ -995,9 +1050,9 @@ function buildMeal(allFoods, meal, targetCal, targetProt, offset) {
     );
     if (extraPool.length) {
       const ef = extraPool[0];
-      const calPerGram = ef.cal / ef.grams;
+      const calPerGram  = ef.cal / ef.grams;
       const neededGrams = calPerGram > 0 ? (rem2 * 0.80) / calPerGram : ef.grams;
-      picked.push(makePortion(ef, clampGrams(neededGrams, ef.grams)));
+      picked.push(makePortion(ef, clampGrams(neededGrams, ef)));
     }
   }
 

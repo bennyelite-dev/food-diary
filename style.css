@@ -17,6 +17,7 @@
   --carbs2:     #00b894;
   --fat:        #fdcb6e;
   --fat2:       #e17055;
+  --fiber:      #00cec9;
 
   --accent:     #a29bfe;
   --radius:     16px;
@@ -786,8 +787,8 @@ body {
 .primary-row .calc-label { color: var(--text); font-weight: 600; font-size: 0.9rem; }
 .pf-highlight { color: var(--accent) !important; font-size: 1.1rem; }
 
-/* Macro target cards (4 columns) */
-.macro-targets { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 8px; }
+/* Macro target cards */
+.macro-targets { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-top: 8px; }
 .macro-target-card {
   background: var(--bg); border-radius: 12px; padding: 12px 6px;
   text-align: center; border: 1px solid var(--border);
@@ -797,6 +798,7 @@ body {
 .prot-tc  .mt-val { color: var(--protein); }
 .carbs-tc .mt-val { color: var(--carbs); }
 .fat-tc   .mt-val { color: var(--fat); }
+.fiber-tc .mt-val { color: var(--fiber); }
 .water-tc .mt-val { color: #74b9ff; }
 
 /* Day tabs */
@@ -817,6 +819,7 @@ body {
   font-size: 0.8rem; color: var(--text-muted);
 }
 .day-totals-bar b { color: var(--text); }
+.fiber-total b { color: var(--fiber); }
 
 /* Meal plan card */
 .meal-plan-card { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
