@@ -402,6 +402,84 @@ const INITIAL_FOODS = [
   { id:'bx08', name:'חלב שיבולת שועל',    category:'משקאות',         cal:50,  protein:1,    carbs:9,    fat:1.5,  unit:'כוס',     grams:240 },
   { id:'bx09', name:'רד בול',             category:'משקאות',         cal:45,  protein:0,    carbs:11,   fat:0,    unit:'פחית',    grams:250 },
   { id:'bx10', name:'ספורטדה',            category:'משקאות',         cal:24,  protein:0,    carbs:6,    fat:0,    unit:'בקבוק',   grams:500 },
+  { id:'bx11', name:'שייק תות וחלב',      category:'משקאות',         cal:145, protein:5,    carbs:26,   fat:2,    unit:'כוס',     grams:300 },
+  { id:'bx12', name:'מיץ אנרגיה טבעי',   category:'משקאות',         cal:55,  protein:0.8,  carbs:13,   fat:0.1,  unit:'כוס',     grams:240 },
+  { id:'bx13', name:'קפה קר עם חלב',      category:'משקאות',         cal:70,  protein:3,    carbs:10,   fat:2,    unit:'כוס',     grams:300 },
+  { id:'bx14', name:'תה זנגביל ולימון',   category:'משקאות',         cal:10,  protein:0,    carbs:2.5,  fat:0,    unit:'כוס',     grams:240 },
+  { id:'bx15', name:'מיץ ירוק (ספירולינה)',category:'משקאות',        cal:65,  protein:2,    carbs:12,   fat:0.5,  unit:'כוס',     grams:300 },
+
+  // ─── קינוחים ודסרטים ───
+  { id:'ds01', name:'טירמיסו',             category:'קינוחים ודסרטים', cal:450, protein:7,    carbs:45,   fat:27,   unit:'מנה',     grams:120 },
+  { id:'ds02', name:'פנה קוטה',            category:'קינוחים ודסרטים', cal:280, protein:4,    carbs:30,   fat:16,   unit:'מנה',     grams:120 },
+  { id:'ds03', name:'מוס שוקולד',          category:'קינוחים ודסרטים', cal:330, protein:5,    carbs:28,   fat:22,   unit:'מנה',     grams:100 },
+  { id:'ds04', name:'קרם ברולה',           category:'קינוחים ודסרטים', cal:340, protein:5,    carbs:32,   fat:21,   unit:'מנה',     grams:120 },
+  { id:'ds05', name:'סופגנייה',            category:'קינוחים ודסרטים', cal:320, protein:5,    carbs:42,   fat:15,   unit:'יחידה',   grams:80  },
+  { id:'ds06', name:'בקלווה',              category:'קינוחים ודסרטים', cal:528, protein:6,    carbs:63,   fat:29,   unit:'יחידה',   grams:60  },
+  { id:'ds07', name:'קנאפה',               category:'קינוחים ודסרטים', cal:380, protein:8,    carbs:52,   fat:17,   unit:'100 גרם', grams:100 },
+  { id:'ds08', name:'אורז בחלב',           category:'קינוחים ודסרטים', cal:150, protein:4,    carbs:25,   fat:3.5,  unit:'100 גרם', grams:100 },
+  { id:'ds09', name:'פודינג שוקולד',       category:'קינוחים ודסרטים', cal:180, protein:4,    carbs:30,   fat:5.5,  unit:'יחידה',   grams:100 },
+  { id:'ds10', name:'אקלר שוקולד',         category:'קינוחים ודסרטים', cal:380, protein:6,    carbs:40,   fat:21,   unit:'יחידה',   grams:90  },
+  { id:'ds11', name:'שטרודל תפוחים',       category:'קינוחים ודסרטים', cal:260, protein:3.5,  carbs:40,   fat:10,   unit:'פרוסה',   grams:80  },
+  { id:'ds12', name:'מאקרון',              category:'קינוחים ודסרטים', cal:400, protein:5,    carbs:60,   fat:17,   unit:'יחידה',   grams:45  },
+  { id:'ds13', name:'גלידת שוקולד',        category:'קינוחים ודסרטים', cal:220, protein:4,    carbs:26,   fat:11,   unit:'100 גרם', grams:100 },
+  { id:'ds14', name:'גלידת תות',           category:'קינוחים ודסרטים', cal:190, protein:3,    carbs:25,   fat:9,    unit:'100 גרם', grams:100 },
+  { id:'ds15', name:'גלידת פיסטוק',        category:'קינוחים ודסרטים', cal:230, protein:4.5,  carbs:24,   fat:13,   unit:'100 גרם', grams:100 },
+  { id:'ds16', name:'שרבט לימון',          category:'קינוחים ודסרטים', cal:95,  protein:0.5,  carbs:24,   fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'ds17', name:'ג׳לי',                category:'קינוחים ודסרטים', cal:62,  protein:1.6,  carbs:14,   fat:0,    unit:'100 גרם', grams:100 },
+  { id:'ds18', name:'קרפ עם שוקולד',       category:'קינוחים ודסרטים', cal:280, protein:7,    carbs:38,   fat:12,   unit:'יחידה',   grams:100 },
+  { id:'ds19', name:'עוגת גזר',            category:'קינוחים ודסרטים', cal:350, protein:4,    carbs:45,   fat:18,   unit:'פרוסה',   grams:80  },
+  { id:'ds20', name:'עוגת תפוחים',         category:'קינוחים ודסרטים', cal:295, protein:4,    carbs:46,   fat:11,   unit:'פרוסה',   grams:80  },
+  { id:'ds21', name:'פרופיטרול',           category:'קינוחים ודסרטים', cal:360, protein:6,    carbs:35,   fat:22,   unit:'מנה (3)', grams:90  },
+  { id:'ds22', name:'מוס קפה',             category:'קינוחים ודסרטים', cal:250, protein:4,    carbs:25,   fat:15,   unit:'מנה',     grams:100 },
+  { id:'ds23', name:'ספקולוס',             category:'קינוחים ודסרטים', cal:480, protein:6,    carbs:72,   fat:19,   unit:'יחידה',   grams:15  },
+  { id:'ds24', name:'חלווה בשוקולד',       category:'קינוחים ודסרטים', cal:560, protein:12,   carbs:55,   fat:33,   unit:'100 גרם', grams:100 },
+  { id:'ds25', name:'בסבוסה',              category:'קינוחים ודסרטים', cal:355, protein:5,    carbs:58,   fat:12,   unit:'יחידה',   grams:80  },
+  { id:'ds26', name:'עוגת גבינה אפויה',    category:'קינוחים ודסרטים', cal:370, protein:7,    carbs:30,   fat:25,   unit:'פרוסה',   grams:90  },
+  { id:'ds27', name:'פי לימון',            category:'קינוחים ודסרטים', cal:300, protein:4,    carbs:42,   fat:14,   unit:'פרוסה',   grams:90  },
+  { id:'ds28', name:'טארט פירות',          category:'קינוחים ודסרטים', cal:290, protein:5,    carbs:38,   fat:14,   unit:'יחידה',   grams:90  },
+  { id:'ds29', name:'ברולה קפה',           category:'קינוחים ודסרטים', cal:310, protein:5,    carbs:28,   fat:20,   unit:'מנה',     grams:120 },
+  { id:'ds30', name:'גלידת גביע',          category:'קינוחים ודסרטים', cal:230, protein:3.5,  carbs:31,   fat:10,   unit:'יחידה',   grams:100 },
+
+  // ─── מאכלים ישראליים נוספים ───
+  { id:'ix01', name:'ג׳חנון',              category:'מאכלים ישראליים', cal:340, protein:8,    carbs:42,   fat:16,   unit:'יחידה',   grams:120 },
+  { id:'ix02', name:'מלאווח',              category:'מאכלים ישראליים', cal:420, protein:9,    carbs:50,   fat:21,   unit:'יחידה',   grams:150 },
+  { id:'ix03', name:'לחוח',                category:'מאכלים ישראליים', cal:180, protein:5,    carbs:34,   fat:2.5,  unit:'יחידה',   grams:80  },
+  { id:'ix04', name:'ממולאים עלי גפן',    category:'מאכלים ישראליים', cal:90,  protein:3,    carbs:12,   fat:3.5,  unit:'יחידה',   grams:35  },
+  { id:'ix05', name:'פול מדמס',            category:'מאכלים ישראליים', cal:150, protein:8,    carbs:24,   fat:3,    unit:'מנה',     grams:200 },
+  { id:'ix06', name:'מסאחן',               category:'מאכלים ישראליים', cal:420, protein:28,   carbs:35,   fat:18,   unit:'מנה',     grams:300 },
+  { id:'ix07', name:'קובה',               category:'מאכלים ישראליים', cal:290, protein:12,   carbs:28,   fat:15,   unit:'יחידה',   grams:100 },
+  { id:'ix08', name:'מוחמרה',              category:'מאכלים ישראליים', cal:310, protein:5,    carbs:22,   fat:23,   unit:'100 גרם', grams:100 },
+  { id:'ix09', name:'לוביה בעגבנייה',      category:'מאכלים ישראליים', cal:130, protein:7,    carbs:22,   fat:2.5,  unit:'100 גרם', grams:100 },
+  { id:'ix10', name:'עוף מרוקאי עם זיתים',category:'מאכלים ישראליים', cal:240, protein:26,   carbs:6,    fat:13,   unit:'100 גרם', grams:100 },
+  { id:'ix11', name:'דג מרוקאי חריף',     category:'מאכלים ישראליים', cal:180, protein:22,   carbs:8,    fat:7,    unit:'100 גרם', grams:100 },
+  { id:'ix12', name:'מרק שגרבי',           category:'מאכלים ישראליים', cal:180, protein:8,    carbs:20,   fat:7,    unit:'צלחת',    grams:350 },
+  { id:'ix13', name:'קבב עם אורז',         category:'מאכלים ישראליים', cal:430, protein:25,   carbs:40,   fat:18,   unit:'מנה',     grams:350 },
+  { id:'ix14', name:'חומוס עם בשר',        category:'מאכלים ישראליים', cal:450, protein:22,   carbs:38,   fat:22,   unit:'מנה',     grams:300 },
+  { id:'ix15', name:'פלאפל בלאפה',         category:'מאכלים ישראליים', cal:520, protein:16,   carbs:64,   fat:24,   unit:'מנה',     grams:320 },
+
+  // ─── חטיפים בריאים ───
+  { id:'sn01', name:'אדממה מלוחה',         category:'חטיפים בריאים',   cal:122, protein:11,   carbs:9,    fat:5,    unit:'100 גרם', grams:100 },
+  { id:'sn02', name:'חומוס עם גזרים',      category:'חטיפים בריאים',   cal:180, protein:6,    carbs:20,   fat:9,    unit:'מנה',     grams:130 },
+  { id:'sn03', name:'גבינה לבנה עם עגבניה',category:'חטיפים בריאים',   cal:110, protein:8,    carbs:4,    fat:6,    unit:'מנה',     grams:120 },
+  { id:'sn04', name:'תפוח עם חמאת בוטנים', category:'חטיפים בריאים',   cal:250, protein:6,    carbs:32,   fat:12,   unit:'מנה',     grams:200 },
+  { id:'sn05', name:'יוגורט עם דבש',       category:'חטיפים בריאים',   cal:130, protein:7,    carbs:18,   fat:3,    unit:'מנה',     grams:150 },
+  { id:'sn06', name:'אגוזים מעורבים',      category:'חטיפים בריאים',   cal:607, protein:16,   carbs:21,   fat:54,   unit:'30 גרם',  grams:30  },
+  { id:'sn07', name:'פרי יבש מעורב',       category:'חטיפים בריאים',   cal:290, protein:2.5,  carbs:74,   fat:0.5,  unit:'30 גרם',  grams:30  },
+  { id:'sn08', name:'ביסקוויט ללא סוכר',   category:'חטיפים בריאים',   cal:320, protein:7,    carbs:55,   fat:9,    unit:'יחידה',   grams:15  },
+  { id:'sn09', name:'קרקרים מלאים',        category:'חטיפים בריאים',   cal:370, protein:10,   carbs:65,   fat:8,    unit:'יחידה',   grams:10  },
+  { id:'sn10', name:'זיתים',               category:'חטיפים בריאים',   cal:145, protein:1,    carbs:3.8,  fat:15,   unit:'10 יחידות',grams:40 },
+
+  // ─── ארוחות בית נוספות ───
+  { id:'hx01', name:'טוסט אבוקדו',         category:'ארוחות בית',      cal:290, protein:7,    carbs:28,   fat:17,   unit:'מנה',     grams:180 },
+  { id:'hx02', name:'חביתה עם גבינה',      category:'ארוחות בית',      cal:280, protein:16,   carbs:2,    fat:22,   unit:'מנה',     grams:150 },
+  { id:'hx03', name:'יוגורט עם גרנולה ופירות',category:'ארוחות בית',   cal:340, protein:12,   carbs:48,   fat:11,   unit:'מנה',     grams:250 },
+  { id:'hx04', name:'סמוזי ירוק',          category:'ארוחות בית',      cal:180, protein:4,    carbs:32,   fat:3,    unit:'כוס',     grams:350 },
+  { id:'hx05', name:'אורז עם ירקות מוקפצים',category:'ארוחות בית',    cal:175, protein:5,    carbs:30,   fat:4,    unit:'100 גרם', grams:100 },
+  { id:'hx06', name:'שניצל עוף בתנור',     category:'ארוחות בית',      cal:220, protein:28,   carbs:12,   fat:6,    unit:'100 גרם', grams:100 },
+  { id:'hx07', name:'מרק ירקות',           category:'ארוחות בית',      cal:55,  protein:2,    carbs:10,   fat:1,    unit:'צלחת',    grams:350 },
+  { id:'hx08', name:'סלט יווני',           category:'ארוחות בית',      cal:160, protein:5,    carbs:7,    fat:13,   unit:'מנה',     grams:200 },
+  { id:'hx09', name:'פסטה עם פסטו',        category:'ארוחות בית',      cal:280, protein:8,    carbs:38,   fat:11,   unit:'100 גרם', grams:100 },
+  { id:'hx10', name:'קיש גבינה ותרד',      category:'ארוחות בית',      cal:295, protein:11,   carbs:20,   fat:19,   unit:'פרוסה',   grams:120 },
 ];
 
 // ===== Foods CRUD =====
@@ -472,12 +550,12 @@ function calcEntryNutrition(food, quantityGrams) {
 // ===== DB Reset =====
 function resetFoodsDB() {
   localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-  localStorage.setItem('food_db_version', '3');
+  localStorage.setItem('food_db_version', '4');
 }
 
 (function checkDBVersion() {
-  if (localStorage.getItem('food_db_version') !== '3') {
+  if (localStorage.getItem('food_db_version') !== '4') {
     localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-    localStorage.setItem('food_db_version', '3');
+    localStorage.setItem('food_db_version', '4');
   }
 })();
