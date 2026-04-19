@@ -550,6 +550,181 @@ const INITIAL_FOODS = [
   { id:'hx08', name:'סלט יווני',           category:'ארוחות בית',      cal:160, protein:5,    carbs:7,    fat:13,   unit:'מנה',     grams:200 },
   { id:'hx09', name:'פסטה עם פסטו',        category:'ארוחות בית',      cal:280, protein:8,    carbs:38,   fat:11,   unit:'100 גרם', grams:100 },
   { id:'hx10', name:'קיש גבינה ותרד',      category:'ארוחות בית',      cal:295, protein:11,   carbs:20,   fat:19,   unit:'פרוסה',   grams:120 },
+
+  // ─── דגנים ולחם נוספים ───
+  { id:'gx01', name:'לחם כוסמין',          category:'דגנים ולחם',     cal:250, protein:10,   carbs:45,   fat:3,    unit:'פרוסה',   grams:30  },
+  { id:'gx02', name:'לחם ללא גלוטן',       category:'דגנים ולחם',     cal:230, protein:4,    carbs:47,   fat:2.5,  unit:'פרוסה',   grams:30  },
+  { id:'gx03', name:'לחם זרעים',           category:'דגנים ולחם',     cal:260, protein:11,   carbs:38,   fat:8,    unit:'פרוסה',   grams:30  },
+  { id:'gx04', name:'כוסמין מבושל',        category:'דגנים ולחם',     cal:166, protein:6,    carbs:36,   fat:1,    unit:'100 גרם', grams:100 },
+  { id:'gx05', name:'אמרנט מבושל',         category:'דגנים ולחם',     cal:102, protein:3.8,  carbs:19,   fat:1.6,  unit:'100 גרם', grams:100 },
+  { id:'gx06', name:'טף מבושל',            category:'דגנים ולחם',     cal:101, protein:3.9,  carbs:20,   fat:0.7,  unit:'100 גרם', grams:100 },
+  { id:'gx07', name:'דוחן מבושל',          category:'דגנים ולחם',     cal:119, protein:3.5,  carbs:23,   fat:1,    unit:'100 גרם', grams:100 },
+  { id:'gx08', name:'פולנטה מבושלת',       category:'דגנים ולחם',     cal:70,  protein:1.6,  carbs:15,   fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'gx09', name:'גריסים מבושלים',      category:'דגנים ולחם',     cal:71,  protein:1.3,  carbs:16,   fat:0.3,  unit:'100 גרם', grams:100 },
+  { id:'gx10', name:'מוזלי',               category:'דגנים ולחם',     cal:370, protein:10,   carbs:62,   fat:8,    unit:'100 גרם', grams:100 },
+  { id:'gx11', name:'שיבולת שועל מהירה',   category:'דגנים ולחם',     cal:367, protein:13,   carbs:66,   fat:7,    unit:'100 גרם', grams:100 },
+  { id:'gx12', name:'טורטיה תירס',         category:'דגנים ולחם',     cal:218, protein:5.7,  carbs:46,   fat:2.5,  unit:'יחידה',   grams:45  },
+  { id:'gx13', name:'פיתה מלאה',           category:'דגנים ולחם',     cal:240, protein:9,    carbs:48,   fat:2,    unit:'יחידה',   grams:60  },
+  { id:'gx14', name:'לחמניה',              category:'דגנים ולחם',     cal:270, protein:8,    carbs:50,   fat:3.5,  unit:'יחידה',   grams:60  },
+  { id:'gx15', name:'פריכיות תירס',        category:'דגנים ולחם',     cal:378, protein:8,    carbs:80,   fat:3,    unit:'יחידה',   grams:9   },
+  { id:'gx16', name:'פסטה פנה',            category:'דגנים ולחם',     cal:131, protein:5,    carbs:25,   fat:1.1,  unit:'100 גרם', grams:100 },
+  { id:'gx17', name:'פסטה פוסילי',         category:'דגנים ולחם',     cal:131, protein:5,    carbs:25,   fat:1.1,  unit:'100 גרם', grams:100 },
+  { id:'gx18', name:'פסטה פרפיון',         category:'דגנים ולחם',     cal:131, protein:5,    carbs:25,   fat:1.1,  unit:'100 גרם', grams:100 },
+  { id:'gx19', name:'פסטה מלאה',           category:'דגנים ולחם',     cal:124, protein:5.3,  carbs:23,   fat:1,    unit:'100 גרם', grams:100 },
+  { id:'gx20', name:'אורז יסמין מבושל',    category:'דגנים ולחם',     cal:129, protein:2.7,  carbs:28,   fat:0.4,  unit:'100 גרם', grams:100 },
+
+  // ─── קטניות נוספות ───
+  { id:'lx01', name:'שעועית אדומה',        category:'קטניות',         cal:127, protein:8.7,  carbs:22,   fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'lx02', name:'שעועית פינטו',        category:'קטניות',         cal:143, protein:9,    carbs:26,   fat:0.6,  unit:'100 גרם', grams:100 },
+  { id:'lx03', name:'עדשים ירוקות',        category:'קטניות',         cal:116, protein:9,    carbs:20,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'lx04', name:'עדשים שחורות',        category:'קטניות',         cal:116, protein:9,    carbs:20,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'lx05', name:'שעועית מאש',          category:'קטניות',         cal:105, protein:7,    carbs:19,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'lx06', name:'שעועית אדזוקי',       category:'קטניות',         cal:128, protein:7.5,  carbs:25,   fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'lx07', name:'פול ירוק',            category:'קטניות',         cal:88,  protein:6.5,  carbs:16,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'lx08', name:'שעועית כליה',         category:'קטניות',         cal:127, protein:8.7,  carbs:22,   fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'lx09', name:'טמפה',                category:'קטניות',         cal:193, protein:19,   carbs:9,    fat:11,   unit:'100 גרם', grams:100 },
+  { id:'lx10', name:'נאטו',                category:'קטניות',         cal:211, protein:17.7, carbs:14,   fat:11,   unit:'100 גרם', grams:100 },
+
+  // ─── בשר ועוף נוספים ───
+  { id:'mx01', name:'פרגית',               category:'בשר ועוף',       cal:185, protein:25,   carbs:0,    fat:9,    unit:'100 גרם', grams:100 },
+  { id:'mx02', name:'שוק עוף',             category:'בשר ועוף',       cal:195, protein:27,   carbs:0,    fat:9,    unit:'100 גרם', grams:100 },
+  { id:'mx03', name:'חזה הודו טחון',       category:'בשר ועוף',       cal:128, protein:29,   carbs:0,    fat:0.7,  unit:'100 גרם', grams:100 },
+  { id:'mx04', name:'אסאדו',               category:'בשר ועוף',       cal:310, protein:26,   carbs:0,    fat:22,   unit:'100 גרם', grams:100 },
+  { id:'mx05', name:'שפונדרה',             category:'בשר ועוף',       cal:290, protein:22,   carbs:0,    fat:22,   unit:'100 גרם', grams:100 },
+  { id:'mx06', name:'שריר בקר',            category:'בשר ועוף',       cal:210, protein:30,   carbs:0,    fat:10,   unit:'100 גרם', grams:100 },
+  { id:'mx07', name:'לשון בקר',            category:'בשר ועוף',       cal:224, protein:16,   carbs:0,    fat:17,   unit:'100 גרם', grams:100 },
+  { id:'mx08', name:'לב עוף',              category:'בשר ועוף',       cal:185, protein:26,   carbs:0.1,  fat:9,    unit:'100 גרם', grams:100 },
+  { id:'mx09', name:'פפרוני',              category:'בשר ועוף',       cal:494, protein:20,   carbs:2,    fat:45,   unit:'פרוסה',   grams:5   },
+  { id:'mx10', name:'סלמי',                category:'בשר ועוף',       cal:336, protein:22,   carbs:1,    fat:26,   unit:'פרוסה',   grams:10  },
+  { id:'mx11', name:'בשר יבש (ג׳רקי)',     category:'בשר ועוף',       cal:410, protein:33,   carbs:36,   fat:7,    unit:'30 גרם',  grams:30  },
+  { id:'mx12', name:'כנפי עוף בתנור',      category:'בשר ועוף',       cal:260, protein:24,   carbs:0,    fat:18,   unit:'100 גרם', grams:100 },
+  { id:'mx13', name:'חזה אווז',            category:'בשר ועוף',       cal:161, protein:22,   carbs:0,    fat:8,    unit:'100 גרם', grams:100 },
+  { id:'mx14', name:'כבש טחון',            category:'בשר ועוף',       cal:258, protein:25,   carbs:0,    fat:17,   unit:'100 גרם', grams:100 },
+  { id:'mx15', name:'בייקון הודו',         category:'בשר ועוף',       cal:218, protein:29,   carbs:1,    fat:11,   unit:'פרוסה',   grams:16  },
+
+  // ─── דגים ופירות ים נוספים ───
+  { id:'fx_f01', name:'הליבוט',            category:'דגים ופירות ים', cal:91,  protein:18.6, carbs:0,    fat:1.3,  unit:'100 גרם', grams:100 },
+  { id:'fx_f02', name:'מנטה',              category:'דגים ופירות ים', cal:84,  protein:18,   carbs:0,    fat:1,    unit:'100 גרם', grams:100 },
+  { id:'fx_f03', name:'בס ים',             category:'דגים ופירות ים', cal:97,  protein:18.4, carbs:0,    fat:2,    unit:'100 גרם', grams:100 },
+  { id:'fx_f04', name:'לברק',              category:'דגים ופירות ים', cal:97,  protein:18.4, carbs:0,    fat:2,    unit:'100 גרם', grams:100 },
+  { id:'fx_f05', name:'בוריה (מולט)',      category:'דגים ופירות ים', cal:117, protein:19,   carbs:0,    fat:4,    unit:'100 גרם', grams:100 },
+  { id:'fx_f06', name:'צלופח מעושן',       category:'דגים ופירות ים', cal:184, protein:18,   carbs:0,    fat:12,   unit:'100 גרם', grams:100 },
+  { id:'fx_f07', name:'סלמון מעושן',       category:'דגים ופירות ים', cal:117, protein:18,   carbs:0,    fat:4.3,  unit:'100 גרם', grams:100 },
+  { id:'fx_f08', name:'קוויאר',            category:'דגים ופירות ים', cal:264, protein:25,   carbs:4,    fat:18,   unit:'כף',      grams:16  },
+  { id:'fx_f09', name:'לובסטר',            category:'דגים ופירות ים', cal:89,  protein:19,   carbs:1.2,  fat:0.9,  unit:'100 גרם', grams:100 },
+  { id:'fx_f10', name:'סרטן',              category:'דגים ופירות ים', cal:97,  protein:19,   carbs:0,    fat:2,    unit:'100 גרם', grams:100 },
+  { id:'fx_f11', name:'צדפות',             category:'דגים ופירות ים', cal:68,  protein:7,    carbs:3.9,  fat:2.5,  unit:'100 גרם', grams:100 },
+  { id:'fx_f12', name:'אצות נורי',         category:'דגים ופירות ים', cal:35,  protein:5.8,  carbs:5,    fat:0.3,  unit:'דף',      grams:3   },
+  { id:'fx_f13', name:'גפילטה פיש',        category:'דגים ופירות ים', cal:90,  protein:8,    carbs:7,    fat:3,    unit:'יחידה',   grams:70  },
+  { id:'fx_f14', name:'הרינג מושלם',       category:'דגים ופירות ים', cal:200, protein:18,   carbs:0,    fat:14,   unit:'100 גרם', grams:100 },
+
+  // ─── מוצרי חלב נוספים ───
+  { id:'dx01', name:'לבן',                 category:'מוצרי חלב',      cal:56,  protein:3.2,  carbs:4.9,  fat:2.3,  unit:'100 גרם', grams:100 },
+  { id:'dx02', name:'קפיר',                category:'מוצרי חלב',      cal:61,  protein:3.4,  carbs:4.8,  fat:3.3,  unit:'כוס',     grams:240 },
+  { id:'dx03', name:'יוגורט פירות',        category:'מוצרי חלב',      cal:95,  protein:3.5,  carbs:17,   fat:1.5,  unit:'100 גרם', grams:100 },
+  { id:'dx04', name:'גבינת קוטג׳ 0%',      category:'מוצרי חלב',      cal:72,  protein:12,   carbs:3,    fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'dx05', name:'שמנת לבישול 15%',     category:'מוצרי חלב',      cal:164, protein:3.1,  carbs:3.5,  fat:15,   unit:'כף',      grams:15  },
+  { id:'dx06', name:'מסקרפונה',            category:'מוצרי חלב',      cal:429, protein:4,    carbs:3.6,  fat:44,   unit:'100 גרם', grams:100 },
+  { id:'dx07', name:'גבינת גרויר',         category:'מוצרי חלב',      cal:413, protein:30,   carbs:0.4,  fat:32,   unit:'100 גרם', grams:100 },
+  { id:'dx08', name:'גבינת מנצ׳גו',        category:'מוצרי חלב',      cal:395, protein:26,   carbs:0.5,  fat:32,   unit:'100 גרם', grams:100 },
+  { id:'dx09', name:'גלידת קפה',           category:'מוצרי חלב',      cal:216, protein:3.5,  carbs:26,   fat:11,   unit:'100 גרם', grams:100 },
+  { id:'dx10', name:'גלידת פיסטוק שמנת',  category:'מוצרי חלב',      cal:230, protein:4,    carbs:25,   fat:13,   unit:'100 גרם', grams:100 },
+
+  // ─── ביצים נוספות ───
+  { id:'ex01', name:'ביצה קשה',            category:'ביצים',          cal:155, protein:13,   carbs:1.1,  fat:11,   unit:'יחידה',   grams:60  },
+  { id:'ex02', name:'ביצה מטוגנת',         category:'ביצים',          cal:196, protein:13,   carbs:0.4,  fat:15,   unit:'יחידה',   grams:60  },
+  { id:'ex03', name:'ביצה עלומה',          category:'ביצים',          cal:155, protein:13,   carbs:1.1,  fat:11,   unit:'יחידה',   grams:60  },
+  { id:'ex04', name:'ביצת שליו',           category:'ביצים',          cal:158, protein:13,   carbs:0.4,  fat:11,   unit:'יחידה',   grams:9   },
+  { id:'ex05', name:'אומלט',               category:'ביצים',          cal:154, protein:11,   carbs:0.4,  fat:12,   unit:'מנה',     grams:80  },
+  { id:'ex06', name:'חלבון ביצה פסטר',     category:'ביצים',          cal:52,  protein:11,   carbs:0.7,  fat:0.2,  unit:'100 גרם', grams:100 },
+
+  // ─── אגוזים וזרעים נוספים ───
+  { id:'nx01', name:'מקדמיה',              category:'אגוזים וזרעים',  cal:718, protein:7.9,  carbs:14,   fat:76,   unit:'30 גרם',  grams:30  },
+  { id:'nx02', name:'זרעי קנבוס',          category:'אגוזים וזרעים',  cal:553, protein:31,   carbs:9,    fat:49,   unit:'30 גרם',  grams:30  },
+  { id:'nx03', name:'זרעי פרג',            category:'אגוזים וזרעים',  cal:525, protein:18,   carbs:28,   fat:42,   unit:'כף',      grams:9   },
+  { id:'nx04', name:'חמאת שקדים',          category:'אגוזים וזרעים',  cal:614, protein:21,   carbs:19,   fat:56,   unit:'כף',      grams:16  },
+  { id:'nx05', name:'חמאת קשיו',           category:'אגוזים וזרעים',  cal:587, protein:18,   carbs:27,   fat:49,   unit:'כף',      grams:16  },
+  { id:'nx06', name:'טחינה שחורה',         category:'אגוזים וזרעים',  cal:581, protein:17,   carbs:23,   fat:51,   unit:'כף',      grams:15  },
+  { id:'nx07', name:'שקדים קלויים',        category:'אגוזים וזרעים',  cal:598, protein:21,   carbs:22,   fat:52,   unit:'30 גרם',  grams:30  },
+  { id:'nx08', name:'בוטנים קלויים',       category:'אגוזים וזרעים',  cal:585, protein:24,   carbs:21,   fat:50,   unit:'30 גרם',  grams:30  },
+
+  // ─── שמנים ושומנים נוספים ───
+  { id:'ox01', name:'שמן אבוקדו',          category:'שמנים ושומנים',  cal:884, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox02', name:'שמן שומשום',          category:'שמנים ושומנים',  cal:884, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox03', name:'שמן פשתן',            category:'שמנים ושומנים',  cal:884, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox04', name:'שמן MCT',             category:'שמנים ושומנים',  cal:862, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox05', name:'גהי',                 category:'שמנים ושומנים',  cal:900, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox06', name:'שמן זרעי ענבים',      category:'שמנים ושומנים',  cal:884, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox07', name:'שמן אגוז מלך',        category:'שמנים ושומנים',  cal:884, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+  { id:'ox08', name:'שמן תירס',            category:'שמנים ושומנים',  cal:884, protein:0,    carbs:0,    fat:100,  unit:'כף',      grams:14  },
+
+  // ─── ממתקים וחטיפים נוספים ───
+  { id:'swx01', name:'שוקולד 85%',         category:'ממתקים וחטיפים', cal:610, protein:9,    carbs:36,   fat:48,   unit:'100 גרם', grams:100 },
+  { id:'swx02', name:'שוקולד 90%',         category:'ממתקים וחטיפים', cal:620, protein:10,   carbs:30,   fat:52,   unit:'100 גרם', grams:100 },
+  { id:'swx03', name:'פרלינים',            category:'ממתקים וחטיפים', cal:520, protein:6,    carbs:58,   fat:30,   unit:'יחידה',   grams:15  },
+  { id:'swx04', name:'מרשמלו',             category:'ממתקים וחטיפים', cal:318, protein:1.8,  carbs:81,   fat:0.2,  unit:'יחידה',   grams:7   },
+  { id:'swx05', name:'גומי דובים',         category:'ממתקים וחטיפים', cal:325, protein:6.3,  carbs:77,   fat:0.1,  unit:'10 יחידות',grams:20 },
+  { id:'swx06', name:'קרמל',               category:'ממתקים וחטיפים', cal:382, protein:3.1,  carbs:68,   fat:10,   unit:'יחידה',   grams:10  },
+  { id:'swx07', name:'אגוזים מסוכרים',     category:'ממתקים וחטיפים', cal:510, protein:8,    carbs:55,   fat:30,   unit:'30 גרם',  grams:30  },
+  { id:'swx08', name:'חטיף אנרגיה',        category:'ממתקים וחטיפים', cal:380, protein:8,    carbs:58,   fat:13,   unit:'יחידה',   grams:50  },
+  { id:'swx09', name:'ביסקוויט שוקולד',    category:'ממתקים וחטיפים', cal:495, protein:6,    carbs:65,   fat:24,   unit:'יחידה',   grams:20  },
+  { id:'swx10', name:'נוגה',               category:'ממתקים וחטיפים', cal:390, protein:6,    carbs:74,   fat:9,    unit:'יחידה',   grams:30  },
+
+  // ─── משקאות נוספים ───
+  { id:'bxx01', name:'מיץ גזר',            category:'משקאות',         cal:41,  protein:1,    carbs:9.6,  fat:0.2,  unit:'כוס',     grams:240 },
+  { id:'bxx02', name:'לימונדה',            category:'משקאות',         cal:40,  protein:0.1,  carbs:10,   fat:0,    unit:'כוס',     grams:240 },
+  { id:'bxx03', name:'חלב שיבולת שועל',    category:'משקאות',         cal:50,  protein:1,    carbs:9,    fat:1.5,  unit:'כוס',     grams:240 },
+  { id:'bxx04', name:'חלב אגוז קשיו',      category:'משקאות',         cal:25,  protein:0.5,  carbs:4,    fat:1,    unit:'כוס',     grams:240 },
+  { id:'bxx05', name:'קפה עם שמנת',        category:'משקאות',         cal:100, protein:1.5,  carbs:3,    fat:9,    unit:'כוס',     grams:240 },
+  { id:'bxx06', name:'מאצ׳ה קר',           category:'משקאות',         cal:80,  protein:2,    carbs:14,   fat:1.5,  unit:'כוס',     grams:300 },
+  { id:'bxx07', name:'תה ורדים',           category:'משקאות',         cal:2,   protein:0,    carbs:0.3,  fat:0,    unit:'כוס',     grams:240 },
+  { id:'bxx08', name:'תה היביסקוס',        category:'משקאות',         cal:2,   protein:0.1,  carbs:0.4,  fat:0,    unit:'כוס',     grams:240 },
+  { id:'bxx09', name:'מיץ רימונים',        category:'משקאות',         cal:54,  protein:0.2,  carbs:13,   fat:0.3,  unit:'כוס',     grams:240 },
+  { id:'bxx10', name:'שייק חלבון שוקולד',  category:'משקאות',         cal:140, protein:25,   carbs:7,    fat:2,    unit:'מנה',     grams:30  },
+
+  // ─── מנות בינלאומיות נוספות ───
+  { id:'inx01', name:'גיוזה (5 יחידות)',   category:'מנות בינלאומיות',cal:210, protein:8,    carbs:28,   fat:8,    unit:'מנה',     grams:120 },
+  { id:'inx02', name:'דים סאם',            category:'מנות בינלאומיות',cal:280, protein:12,   carbs:32,   fat:11,   unit:'מנה',     grams:150 },
+  { id:'inx03', name:'מיסו סופ',           category:'מנות בינלאומיות',cal:40,  protein:3,    carbs:5,    fat:1.5,  unit:'קערה',    grams:240 },
+  { id:'inx04', name:'ביבימבאפ',           category:'מנות בינלאומיות',cal:490, protein:22,   carbs:68,   fat:14,   unit:'מנה',     grams:400 },
+  { id:'inx05', name:'פו וייטנאמי',        category:'מנות בינלאומיות',cal:210, protein:14,   carbs:28,   fat:4,    unit:'קערה',    grams:400 },
+  { id:'inx06', name:'לאקסה',              category:'מנות בינלאומיות',cal:390, protein:18,   carbs:48,   fat:14,   unit:'קערה',    grams:400 },
+  { id:'inx07', name:'קוסקוס מרוקאי',      category:'מנות בינלאומיות',cal:165, protein:6,    carbs:28,   fat:4,    unit:'100 גרם', grams:100 },
+  { id:'inx08', name:'טאג׳ין כבש',         category:'מנות בינלאומיות',cal:220, protein:20,   carbs:12,   fat:11,   unit:'100 גרם', grams:100 },
+  { id:'inx09', name:'כבסה',               category:'מנות בינלאומיות',cal:195, protein:11,   carbs:26,   fat:5,    unit:'100 גרם', grams:100 },
+  { id:'inx10', name:'מוחלביה',            category:'מנות בינלאומיות',cal:140, protein:4,    carbs:22,   fat:4,    unit:'מנה',     grams:150 },
+  { id:'inx11', name:'טמפורה ירקות',       category:'מנות בינלאומיות',cal:200, protein:4,    carbs:26,   fat:9,    unit:'100 גרם', grams:100 },
+  { id:'inx12', name:'קיסדיה',             category:'מנות בינלאומיות',cal:380, protein:17,   carbs:38,   fat:18,   unit:'יחידה',   grams:150 },
+  { id:'inx13', name:'נאצ׳וס',             category:'מנות בינלאומיות',cal:500, protein:12,   carbs:58,   fat:26,   unit:'מנה',     grams:140 },
+  { id:'inx14', name:'פאד סי יו',          category:'מנות בינלאומיות',cal:370, protein:16,   carbs:48,   fat:13,   unit:'מנה',     grams:300 },
+  { id:'inx15', name:'מאסאמן קארי',        category:'מנות בינלאומיות',cal:195, protein:11,   carbs:15,   fat:10,   unit:'100 גרם', grams:100 },
+
+  // ─── מזון מהיר נוסף ───
+  { id:'ffx01', name:'צ׳יקן מק',           category:'מזון מהיר',      cal:400, protein:25,   carbs:40,   fat:15,   unit:'יחידה',   grams:175 },
+  { id:'ffx02', name:'מק מאפין',           category:'מזון מהיר',      cal:290, protein:17,   carbs:27,   fat:12,   unit:'יחידה',   grams:140 },
+  { id:'ffx03', name:'פיצה הוואיינית',     category:'מזון מהיר',      cal:258, protein:12,   carbs:32,   fat:9,    unit:'פרוסה',   grams:107 },
+  { id:'ffx04', name:'קיסדיה עוף',         category:'מזון מהיר',      cal:350, protein:22,   carbs:32,   fat:14,   unit:'יחידה',   grams:150 },
+  { id:'ffx05', name:'ברוסקטה',            category:'מזון מהיר',      cal:160, protein:4,    carbs:22,   fat:6,    unit:'יחידה',   grams:60  },
+  { id:'ffx06', name:'שוורמה צלחת',        category:'מזון מהיר',      cal:520, protein:32,   carbs:45,   fat:22,   unit:'מנה',     grams:350 },
+
+  // ─── רטבים ותיבול נוספים ───
+  { id:'sax01', name:'מיסו',               category:'רטבים ותיבול',   cal:199, protein:12,   carbs:26,   fat:6,    unit:'כף',      grams:17  },
+  { id:'sax02', name:'רוטב טריאקי',        category:'רטבים ותיבול',   cal:89,  protein:3,    carbs:16,   fat:1,    unit:'כף',      grams:16  },
+  { id:'sax03', name:'רוטב צ׳ילי מתוק',    category:'רטבים ותיבול',   cal:117, protein:0.3,  carbs:28,   fat:0.3,  unit:'כף',      grams:17  },
+  { id:'sax04', name:'רוטב ברביקיו',       category:'רטבים ותיבול',   cal:117, protein:1,    carbs:28,   fat:0.5,  unit:'כף',      grams:17  },
+  { id:'sax05', name:'חומוס שחור',         category:'רטבים ותיבול',   cal:180, protein:9,    carbs:14,   fat:11,   unit:'כף',      grams:30  },
+  { id:'sax06', name:'בזיל פסטו אדום',     category:'רטבים ותיבול',   cal:245, protein:5,    carbs:11,   fat:21,   unit:'כף',      grams:20  },
+  { id:'sax07', name:'עירית',              category:'רטבים ותיבול',   cal:30,  protein:3.3,  carbs:4.4,  fat:0.7,  unit:'כף',      grams:3   },
+  { id:'sax08', name:'סויה מופחת נתרן',    category:'רטבים ותיבול',   cal:33,  protein:5.3,  carbs:2.8,  fat:0.4,  unit:'כף',      grams:16  },
+
+  // ─── מוצרי אפייה נוספים ───
+  { id:'bkx01', name:'עוגת לימון',         category:'מוצרי אפייה',    cal:310, protein:5,    carbs:48,   fat:12,   unit:'פרוסה',   grams:70  },
+  { id:'bkx02', name:'מאפין בלוברי',       category:'מוצרי אפייה',    cal:360, protein:5,    carbs:52,   fat:15,   unit:'יחידה',   grams:100 },
+  { id:'bkx03', name:'סינמון רול',         category:'מוצרי אפייה',    cal:420, protein:6,    carbs:65,   fat:16,   unit:'יחידה',   grams:110 },
+  { id:'bkx04', name:'קוגלהופ',            category:'מוצרי אפייה',    cal:330, protein:6,    carbs:52,   fat:11,   unit:'פרוסה',   grams:70  },
+  { id:'bkx05', name:'פונדנט שוקולד',      category:'מוצרי אפייה',    cal:440, protein:7,    carbs:50,   fat:24,   unit:'יחידה',   grams:80  },
+  { id:'bkx06', name:'עוגת פרג',           category:'מוצרי אפייה',    cal:345, protein:6,    carbs:47,   fat:16,   unit:'פרוסה',   grams:70  },
+  { id:'bkx07', name:'שקדים כתושים (קרם)', category:'מוצרי אפייה',    cal:580, protein:21,   carbs:22,   fat:50,   unit:'כף',      grams:16  },
 ];
 
 // ===== Foods CRUD =====
@@ -620,12 +795,12 @@ function calcEntryNutrition(food, quantityGrams) {
 // ===== DB Reset =====
 function resetFoodsDB() {
   localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-  localStorage.setItem('food_db_version', '6');
+  localStorage.setItem('food_db_version', '7');
 }
 
 (function checkDBVersion() {
-  if (localStorage.getItem('food_db_version') !== '6') {
+  if (localStorage.getItem('food_db_version') !== '7') {
     localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-    localStorage.setItem('food_db_version', '6');
+    localStorage.setItem('food_db_version', '7');
   }
 })();
