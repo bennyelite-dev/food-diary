@@ -133,9 +133,11 @@
   <div class="toast" id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="db.js"></script>
   <script src="supabase.js"></script>
   <script>
+  // סיסמה מוגדרת מקומית כגיבוי
+  const _ADMIN_PASS = (typeof ADMIN_PASSWORD !== 'undefined') ? ADMIN_PASSWORD : 'admin1234';
+
   // ── Helpers ──
   function showToast(msg, type = 'success') {
     const t = document.getElementById('toast');
@@ -160,7 +162,7 @@
 
   function tryLogin() {
     const val = document.getElementById('passwordInput').value.trim();
-    if (val === ADMIN_PASSWORD) {
+    if (val === _ADMIN_PASS) {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('adminPanel').style.display = '';
       loadClients();
@@ -170,7 +172,7 @@
   }
 
   // Auto-login if password in URL param
-  if (passParam === ADMIN_PASSWORD) {
+  if (passParam === _ADMIN_PASS) {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminPanel').style.display = '';
     loadClients();
