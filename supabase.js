@@ -124,3 +124,48 @@ function buildClientURL(token) {
   const base = window.location.origin + window.location.pathname.replace(/admin\.html$/, 'index.html');
   return `${base}?t=${token}`;
 }
+
+// ─── Client Profile ───
+async function getClientProfile() {
+  if (!currentClient) return null;
+  const { data } = await _sb
+    .from('client_profiles').select('*')
+    .eq('client_id', currentClient.id).single();
+  return data || null;
+}
+
+async function saveClientProfile(profile) {
+  if (!currentClient) return null;
+  const { data, error } = await _sb
+    .from('client_profiles')
+    .upsert({ client_id: currentClient.id, ...profile, updated_at: new Date().toISOString() },
+             { onConflict: 'client_id' })
+    .select().single();
+  if (error) { console.error(error); return null; }
+  return data;
+}
+
+// ─── Meal Plans ───
+async function getMealPlans() {
+  if (!currentClient) return [];
+  const { data } = await _sb
+    .from('meal_plans').select('*')
+    .eq('client_id', currentClient.id)
+    .order('sort_order');
+  return data || [];
+}
+
+async function saveAllMealPlans(plans) {
+  if (!currentClient) return;
+  await _sb.from('meal_plans').delete().eq('client_id', currentClient.id);
+  if (!plans.length) return;
+  await _sb.from('meal_plans').insert(
+    plans.map((p, i) => ({
+      client_id: currentClient.id,
+      day_label: p.day_label,
+      plan_data: p.plan_data,
+      sort_order: i,
+      updated_at: new Date().toISOString(),
+    }))
+  );
+}

@@ -756,3 +756,109 @@ body {
   border-top-color: var(--primary);
   animation: spin 0.9s linear infinite;
 }
+
+/* ===== Profile Tab ===== */
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.profile-grid .span2 { grid-column: span 2; }
+
+/* Selectable chips */
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.sel-chip {
+  padding: 6px 14px; border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--bg); color: var(--text);
+  font-family: 'Heebo', sans-serif; font-size: 0.82rem;
+  cursor: pointer; transition: all 0.15s;
+}
+.sel-chip:hover { border-color: var(--accent); color: var(--accent); }
+.sel-chip.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+.sel-chip.num-chip { min-width: 34px; padding: 6px 8px; text-align: center; }
+
+/* Calculated results */
+.calc-summary { margin-bottom: 14px; }
+.calc-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--border);
+}
+.calc-row:last-child { border-bottom: none; }
+.calc-label { color: var(--text-muted); font-size: 0.83rem; }
+.calc-val   { font-weight: 600; font-size: 0.93rem; }
+.primary-row .calc-label { color: var(--text); font-weight: 600; font-size: 0.9rem; }
+.pf-highlight { color: var(--accent) !important; font-size: 1.1rem; }
+
+/* Macro target cards (4 columns) */
+.macro-targets { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 8px; }
+.macro-target-card {
+  background: var(--bg); border-radius: 12px; padding: 12px 6px;
+  text-align: center; border: 1px solid var(--border);
+}
+.mt-val   { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+.mt-label { font-size: 0.68rem; color: var(--text-muted); }
+.prot-tc  .mt-val { color: var(--protein); }
+.carbs-tc .mt-val { color: var(--carbs); }
+.fat-tc   .mt-val { color: var(--fat); }
+.water-tc .mt-val { color: #74b9ff; }
+
+/* Day tabs */
+.day-tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+.day-tab {
+  flex: 1; padding: 8px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--bg);
+  color: var(--text-muted); font-family: 'Heebo', sans-serif;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+}
+.day-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(162,155,254,.1); }
+
+/* Day totals bar */
+.day-totals-bar {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  background: var(--bg); border-radius: 10px;
+  padding: 10px 12px; margin-bottom: 10px;
+  font-size: 0.8rem; color: var(--text-muted);
+}
+.day-totals-bar b { color: var(--text); }
+
+/* Meal plan card */
+.meal-plan-card { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+.meal-plan-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.meal-plan-title { flex: 1; font-weight: 600; font-size: 0.88rem; }
+.meal-plan-cal   { font-size: 0.78rem; color: var(--text-muted); }
+.meal-plan-items { padding: 6px 12px 10px; }
+.meal-plan-item  {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 0; font-size: 0.82rem;
+  border-bottom: 1px solid var(--border);
+}
+.meal-plan-item:last-child { border-bottom: none; }
+.mpi-name  { flex: 1; }
+.mpi-grams { font-size: 0.73rem; color: var(--text-muted); }
+.mpi-cal   { font-size: 0.73rem; color: var(--cal); font-weight: 600; min-width: 48px; text-align: left; }
+.mpi-empty { color: var(--text-muted); font-size: 0.82rem; padding: 8px 0; text-align: center; }
+
+/* Meal editor modal items */
+.editor-search-results { margin-top: 6px; max-height: 200px; overflow-y: auto; }
+.editor-search-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 0.83rem;
+}
+.editor-search-item:hover { background: var(--bg); }
+.editor-search-item small { color: var(--text-muted); font-size: 0.72rem; }
+.editor-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+}
+.editor-item:last-child { border-bottom: none; }
+.editor-item-name  { flex: 1; font-size: 0.83rem; font-weight: 500; }
+.editor-grams-input { width: 65px !important; padding: 4px 6px !important; font-size: 0.78rem !important; }
+.editor-item-unit  { font-size: 0.72rem; color: var(--text-muted); }
+.editor-item-cal   { font-size: 0.73rem; color: var(--cal); min-width: 50px; }
+.editor-remove-btn {
+  background: none; border: none; color: var(--cal);
+  font-size: 0.9rem; cursor: pointer; padding: 2px 6px;
+  border-radius: 4px; line-height: 1;
+}
+.editor-remove-btn:hover { background: rgba(255,107,107,.12); }
