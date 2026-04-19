@@ -570,11 +570,28 @@ const MEAL_PLAN_META  = {
 const ACTIVITY_FACTORS = {
   sedentary: 1.2, light: 1.375, moderate: 1.55, active: 1.725, very_active: 1.9,
 };
-const MEAL_CATS = {
-  breakfast: ['דגנים ולחם', 'מוצרי חלב', 'ביצים', 'פירות', 'ארוחות בית'],
-  lunch:     ['בשר ועוף', 'דגים ופירות ים', 'קטניות', 'ירקות', 'דגנים ולחם', 'מאכלים ישראליים', 'ארוחות בית'],
-  dinner:    ['בשר ועוף', 'דגים ופירות ים', 'ירקות', 'ארוחות בית', 'קטניות'],
-  snack:     ['פירות', 'חטיפים בריאים', 'מוצרי חלב', 'אגוזים וזרעים'],
+// Role-based meal structure: protein source + carb source + extra (vegetable/fruit)
+const MEAL_ROLES = {
+  breakfast: {
+    proteins: ['ביצים', 'מוצרי חלב', 'תוספי ספורט'],
+    carbs:    ['דגנים ולחם', 'ארוחות בית', 'פירות'],
+    extras:   ['פירות'],
+  },
+  lunch: {
+    proteins: ['בשר ועוף', 'דגים ופירות ים', 'קטניות', 'מאכלים ישראליים', 'ארוחות בית'],
+    carbs:    ['דגנים ולחם', 'קטניות', 'ארוחות בית'],
+    extras:   ['ירקות'],
+  },
+  dinner: {
+    proteins: ['בשר ועוף', 'דגים ופירות ים', 'קטניות', 'ארוחות בית'],
+    carbs:    ['דגנים ולחם', 'ירקות'],
+    extras:   ['ירקות'],
+  },
+  snack: {
+    proteins: ['מוצרי חלב', 'אגוזים וזרעים', 'חטיפים בריאים'],
+    carbs:    ['פירות', 'חטיפים בריאים'],
+    extras:   [],
+  },
 };
 
 // ─── Calculations ───
@@ -772,19 +789,31 @@ function pfDay(plan, planIdx) {
 
 function pfMealCard(items, meal, planIdx) {
   const { label, icon } = MEAL_PLAN_META[meal];
-  const mCal = Math.round(items.reduce((s, i) => s + (i.cal||0), 0));
+  const tot = items.reduce((a, i) => ({
+    cal:     a.cal     + (i.cal||0),
+    protein: a.protein + (i.protein||0),
+    carbs:   a.carbs   + (i.carbs||0),
+    fat:     a.fat     + (i.fat||0),
+  }), { cal:0, protein:0, carbs:0, fat:0 });
+
   return `
     <div class="meal-plan-card">
       <div class="meal-plan-header">
         <span class="meal-plan-title">${icon} ${label}</span>
-        <span class="meal-plan-cal">${mCal} קל׳</span>
+        <span class="meal-plan-cal">${Math.round(tot.cal)} קל׳</span>
         <button class="btn btn-ghost btn-sm edit-plan-meal-btn" data-plan-idx="${planIdx}" data-meal="${meal}">ערוך</button>
+      </div>
+      <div class="meal-plan-macros">
+        <span style="color:var(--protein)">חל׳ ${Math.round(tot.protein)}g</span>
+        <span style="color:var(--carbs)">פח׳ ${Math.round(tot.carbs)}g</span>
+        <span style="color:var(--fat)">שו׳ ${Math.round(tot.fat)}g</span>
       </div>
       <div class="meal-plan-items">
         ${items.length ? items.map(it => `
           <div class="meal-plan-item">
             <span class="mpi-name">${it.name}</span>
             <span class="mpi-grams">${it.grams}g</span>
+            <span class="mpi-macros">${it.protein}g חל׳ · ${it.carbs}g פח׳</span>
             <span class="mpi-cal">${it.cal} קל׳</span>
           </div>`).join('') : '<div class="mpi-empty">ריק</div>'}
       </div>
@@ -885,38 +914,94 @@ function generateMealPlans(goals, p) {
     day_label: `יום ${dayNum}`,
     plan_data: Object.fromEntries(
       MEAL_PLAN_ORDER.map((meal, mIdx) => {
-        const targetCal = Math.round(goals.calories * splits[meal]);
-        const eligible  = foods.filter(f => MEAL_CATS[meal].includes(f.category));
-        return [meal, pickMealFoods(eligible, targetCal, dayIdx * 17 + mIdx * 5)];
+        const targetCal  = Math.round(goals.calories * splits[meal]);
+        const targetProt = Math.round(goals.protein  * splits[meal]);
+        const offset     = dayIdx * 19 + mIdx * 6;
+        return [meal, buildMeal(foods, meal, targetCal, targetProt, offset)];
       })
     ),
   }));
 }
 
-function pickMealFoods(foods, targetCal, offset) {
-  if (!foods.length) return [];
-  const rotated = [...foods.slice(offset % foods.length), ...foods.slice(0, offset % foods.length)];
-  const result  = [];
-  let remaining = targetCal;
-  for (let i = 0; i < rotated.length && result.length < 3 && remaining > 40; i++) {
-    const food = rotated[i];
-    if (result.some(r => r.id === food.id) || food.cal <= 0) continue;
-    const frac = result.length === 0 ? 0.55 : 0.42;
-    let grams  = Math.round((remaining * frac / food.cal) * food.grams);
-    grams = Math.max(Math.round(food.grams * 0.4), Math.min(Math.round(food.grams * 3), grams));
-    grams = Math.max(10, Math.round(grams / 5) * 5);
-    const ratio = grams / food.grams;
-    const pCal  = Math.round(food.cal * ratio);
-    if (pCal < 15) continue;
-    result.push({ id:food.id, name:food.name, grams,
-      cal: pCal,
-      protein: Math.round(food.protein * ratio * 10) / 10,
-      carbs:   Math.round(food.carbs   * ratio * 10) / 10,
-      fat:     Math.round(food.fat     * ratio * 10) / 10,
-    });
-    remaining -= pCal;
+function rotate(list, offset) {
+  if (!list.length) return [];
+  const i = offset % list.length;
+  return [...list.slice(i), ...list.slice(0, i)];
+}
+
+function clampGrams(grams, std) {
+  return Math.max(10, Math.round(Math.max(std * 0.35, Math.min(std * 4, grams)) / 5) * 5);
+}
+
+function makePortion(food, grams) {
+  const ratio = grams / food.grams;
+  return {
+    id: food.id, name: food.name, grams,
+    cal:     Math.round(food.cal     * ratio),
+    protein: Math.round(food.protein * ratio * 10) / 10,
+    carbs:   Math.round(food.carbs   * ratio * 10) / 10,
+    fat:     Math.round(food.fat     * ratio * 10) / 10,
+  };
+}
+
+function buildMeal(allFoods, meal, targetCal, targetProt, offset) {
+  const roles  = MEAL_ROLES[meal];
+  const picked = [];
+
+  // 1. Protein food — scale to supply 70% of meal protein target
+  const protPool = rotate(
+    allFoods.filter(f => roles.proteins.includes(f.category) && f.protein > 0 && f.cal > 0),
+    offset
+  );
+  if (protPool.length) {
+    const pf = protPool[0];
+    const protPerGram = pf.protein / pf.grams;
+    const neededGrams = protPerGram > 0 ? (targetProt * 0.70) / protPerGram : pf.grams;
+    picked.push(makePortion(pf, clampGrams(neededGrams, pf.grams)));
   }
-  return result;
+
+  // 2. Carb food — fill ~60% of remaining calories, must be carb-dominant
+  const usedCal1 = picked.reduce((s, i) => s + i.cal, 0);
+  const rem1     = targetCal - usedCal1;
+  if (rem1 > 80) {
+    const carbPool = rotate(
+      allFoods.filter(f =>
+        roles.carbs.includes(f.category) &&
+        f.carbs >= f.protein &&
+        f.cal > 0 &&
+        !picked.some(p => p.id === f.id)
+      ),
+      offset + 8
+    );
+    if (carbPool.length) {
+      const cf = carbPool[0];
+      const calPerGram = cf.cal / cf.grams;
+      const neededGrams = calPerGram > 0 ? (rem1 * 0.60) / calPerGram : cf.grams;
+      picked.push(makePortion(cf, clampGrams(neededGrams, cf.grams)));
+    }
+  }
+
+  // 3. Extra (vegetable / fruit) — fill most of remaining calories
+  const usedCal2 = picked.reduce((s, i) => s + i.cal, 0);
+  const rem2     = targetCal - usedCal2;
+  if (rem2 > 50 && roles.extras.length) {
+    const extraPool = rotate(
+      allFoods.filter(f =>
+        roles.extras.includes(f.category) &&
+        f.cal > 0 &&
+        !picked.some(p => p.id === f.id)
+      ),
+      offset + 14
+    );
+    if (extraPool.length) {
+      const ef = extraPool[0];
+      const calPerGram = ef.cal / ef.grams;
+      const neededGrams = calPerGram > 0 ? (rem2 * 0.80) / calPerGram : ef.grams;
+      picked.push(makePortion(ef, clampGrams(neededGrams, ef.grams)));
+    }
+  }
+
+  return picked;
 }
 
 // ─── Meal editor modal ───

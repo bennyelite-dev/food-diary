@@ -827,6 +827,11 @@ body {
 }
 .meal-plan-title { flex: 1; font-weight: 600; font-size: 0.88rem; }
 .meal-plan-cal   { font-size: 0.78rem; color: var(--text-muted); }
+.meal-plan-macros {
+  display: flex; gap: 10px; padding: 5px 12px;
+  font-size: 0.75rem; font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
 .meal-plan-items { padding: 6px 12px 10px; }
 .meal-plan-item  {
   display: flex; align-items: center; gap: 6px;
@@ -834,9 +839,10 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .meal-plan-item:last-child { border-bottom: none; }
-.mpi-name  { flex: 1; }
-.mpi-grams { font-size: 0.73rem; color: var(--text-muted); }
-.mpi-cal   { font-size: 0.73rem; color: var(--cal); font-weight: 600; min-width: 48px; text-align: left; }
+.mpi-name   { flex: 1; }
+.mpi-grams  { font-size: 0.73rem; color: var(--text-muted); min-width: 34px; }
+.mpi-macros { font-size: 0.7rem; color: var(--text-muted); }
+.mpi-cal    { font-size: 0.73rem; color: var(--cal); font-weight: 600; min-width: 48px; text-align: left; }
 .mpi-empty { color: var(--text-muted); font-size: 0.82rem; padding: 8px 0; text-align: center; }
 
 /* Meal editor modal items */
