@@ -390,6 +390,41 @@ const INITIAL_FOODS = [
   { id:'fx03', name:'גרגרי חמוציות',      category:'פירות',          cal:46,  protein:0.4,  carbs:12,   fat:0.1,  unit:'100 גרם', grams:100 },
   { id:'fx04', name:'פרי יוגי',           category:'פירות',          cal:64,  protein:0.7,  carbs:16,   fat:0.2,  unit:'יחידה',   grams:200 },
   { id:'fx05', name:'שסק',                category:'פירות',          cal:47,  protein:0.4,  carbs:12,   fat:0.2,  unit:'יחידה',   grams:80  },
+  { id:'fx06', name:'נקטרינה',            category:'פירות',          cal:44,  protein:1.1,  carbs:11,   fat:0.3,  unit:'יחידה',   grams:142 },
+  { id:'fx07', name:'אפרסמון',            category:'פירות',          cal:70,  protein:0.6,  carbs:19,   fat:0.2,  unit:'יחידה',   grams:168 },
+  { id:'fx08', name:'ליים',               category:'פירות',          cal:30,  protein:0.7,  carbs:11,   fat:0.2,  unit:'יחידה',   grams:67  },
+  { id:'fx09', name:'פומלו',              category:'פירות',          cal:38,  protein:0.8,  carbs:10,   fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'fx10', name:'קומקווט',            category:'פירות',          cal:71,  protein:1.9,  carbs:16,   fat:0.9,  unit:'יחידה',   grams:19  },
+  { id:'fx11', name:'תות עץ (מולברי)',    category:'פירות',          cal:43,  protein:1.4,  carbs:10,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'fx12', name:'פרי הדרקון',         category:'פירות',          cal:60,  protein:1.2,  carbs:13,   fat:0,    unit:'100 גרם', grams:100 },
+  { id:'fx13', name:'רמבוטן',             category:'פירות',          cal:82,  protein:0.7,  carbs:21,   fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'fx14', name:'לונגאן',             category:'פירות',          cal:60,  protein:1.3,  carbs:15,   fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'fx15', name:'מנגוסטין',           category:'פירות',          cal:73,  protein:0.4,  carbs:18,   fat:0.6,  unit:'100 גרם', grams:100 },
+  { id:'fx16', name:'כוכב פרי (קרמבולה)', category:'פירות',          cal:31,  protein:1,    carbs:7,    fat:0.3,  unit:'יחידה',   grams:91  },
+  { id:'fx17', name:'ג׳ק פרוט',           category:'פירות',          cal:95,  protein:1.7,  carbs:24,   fat:0.6,  unit:'100 גרם', grams:100 },
+  { id:'fx18', name:'צימוקים',            category:'פירות',          cal:299, protein:3.1,  carbs:79,   fat:0.5,  unit:'כף',      grams:15  },
+  { id:'fx19', name:'שזיפים מיובשים',     category:'פירות',          cal:240, protein:2.2,  carbs:64,   fat:0.4,  unit:'יחידה',   grams:10  },
+  { id:'fx20', name:'משמש מיובש',         category:'פירות',          cal:241, protein:3.4,  carbs:63,   fat:0.5,  unit:'30 גרם',  grams:30  },
+  { id:'fx21', name:'תאנה יבשה',          category:'פירות',          cal:249, protein:3.3,  carbs:64,   fat:1,    unit:'יחידה',   grams:20  },
+  { id:'fx22', name:'מנגו מיובש',         category:'פירות',          cal:319, protein:2.5,  carbs:78,   fat:1.2,  unit:'30 גרם',  grams:30  },
+  { id:'fx23', name:'אסאי',               category:'פירות',          cal:70,  protein:1.5,  carbs:4,    fat:5,    unit:'100 גרם', grams:100 },
+  { id:'fx24', name:'גוג׳י',              category:'פירות',          cal:349, protein:14,   carbs:77,   fat:0.4,  unit:'30 גרם',  grams:30  },
+  { id:'fx25', name:'קלמנטינה',           category:'פירות',          cal:47,  protein:0.9,  carbs:12,   fat:0.1,  unit:'יחידה',   grams:74  },
+  { id:'fx26', name:'שדוק',               category:'פירות',          cal:25,  protein:0.5,  carbs:6.3,  fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'fx27', name:'פלנטיין',            category:'פירות',          cal:122, protein:1.3,  carbs:32,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'fx28', name:'ארוניה',             category:'פירות',          cal:47,  protein:1.4,  carbs:10,   fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'fx29', name:'זעפרן (ברי אלדר)',   category:'פירות',          cal:73,  protein:0.7,  carbs:18,   fat:0.5,  unit:'100 גרם', grams:100 },
+  { id:'fx30', name:'פרי העץ הלחם',       category:'פירות',          cal:103, protein:1.1,  carbs:28,   fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'fx31', name:'נוני',               category:'פירות',          cal:47,  protein:0.4,  carbs:11,   fat:0.1,  unit:'100 גרם', grams:100 },
+  { id:'fx32', name:'ספודילה',            category:'פירות',          cal:83,  protein:0.4,  carbs:20,   fat:1.1,  unit:'100 גרם', grams:100 },
+  { id:'fx33', name:'ענבים שחורים',       category:'פירות',          cal:69,  protein:0.7,  carbs:18,   fat:0.2,  unit:'100 גרם', grams:100 },
+  { id:'fx34', name:'ענבים ירוקים',       category:'פירות',          cal:67,  protein:0.6,  carbs:17,   fat:0.4,  unit:'100 גרם', grams:100 },
+  { id:'fx35', name:'דובי יער (קלאודברי)', category:'פירות',          cal:51,  protein:1,    carbs:13,   fat:0.8,  unit:'100 גרם', grams:100 },
+  { id:'fx36', name:'אגס אסייתי',         category:'פירות',          cal:42,  protein:0.5,  carbs:11,   fat:0.2,  unit:'יחידה',   grams:122 },
+  { id:'fx37', name:'שזיף יפני (אומה)',    category:'פירות',          cal:34,  protein:0.4,  carbs:9,    fat:0,    unit:'יחידה',   grams:30  },
+  { id:'fx38', name:'פפאיה מיובשת',       category:'פירות',          cal:275, protein:0.6,  carbs:73,   fat:0.4,  unit:'30 גרם',  grams:30  },
+  { id:'fx39', name:'אננס מיובש',         category:'פירות',          cal:310, protein:0.4,  carbs:82,   fat:0.2,  unit:'30 גרם',  grams:30  },
+  { id:'fx40', name:'קוקוס מיובש',        category:'פירות',          cal:660, protein:7,    carbs:24,   fat:65,   unit:'30 גרם',  grams:30  },
 
   // ─── משקאות נוספים ───
   { id:'bx01', name:'קפה סויה לאטה',      category:'משקאות',         cal:80,  protein:4,    carbs:10,   fat:2,    unit:'כוס',     grams:360 },
@@ -550,12 +585,12 @@ function calcEntryNutrition(food, quantityGrams) {
 // ===== DB Reset =====
 function resetFoodsDB() {
   localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-  localStorage.setItem('food_db_version', '4');
+  localStorage.setItem('food_db_version', '5');
 }
 
 (function checkDBVersion() {
-  if (localStorage.getItem('food_db_version') !== '4') {
+  if (localStorage.getItem('food_db_version') !== '5') {
     localStorage.setItem(KEYS.foods, JSON.stringify(INITIAL_FOODS));
-    localStorage.setItem('food_db_version', '4');
+    localStorage.setItem('food_db_version', '5');
   }
 })();
