@@ -19,7 +19,8 @@
   --fat2:       #e17055;
   --fiber:      #00cec9;
 
-  --accent:     #a29bfe;
+  --accent:     #c0226e;
+  --accent2:    #4a8a2a;
   --radius:     16px;
   --radius-sm:  10px;
   --nav-h:      70px;
@@ -58,7 +59,8 @@ body {
 }
 .logo { display: flex; align-items: center; gap: 8px; }
 .logo-icon { font-size: 1.5rem; }
-.logo-text { font-weight: 800; font-size: 1.15rem; background: linear-gradient(135deg, var(--cal), var(--protein)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.header-logo { height: 42px; width: auto; object-fit: contain; }
+.logo-text { font-weight: 800; font-size: 1.1rem; background: linear-gradient(135deg, #c0226e, #4a8a2a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .header-date { font-size: 0.8rem; color: var(--text-muted); }
 
 /* ===== Main ===== */
@@ -716,13 +718,13 @@ body {
   align-items: center; justify-content: center; gap: 24px;
 }
 .loading-logo { position: relative; display: flex; align-items: center; justify-content: center; }
-.loading-logo-img { width: 80px; height: 80px; object-fit: contain; border-radius: 16px; }
+.loading-logo-img { width: 140px; height: 140px; object-fit: contain; }
 .loading-spinner-ring {
   position: absolute; inset: -12px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: var(--primary);
-  border-right-color: var(--primary);
+  border-top-color: #c0226e;
+  border-right-color: #4a8a2a;
   animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
