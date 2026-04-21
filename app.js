@@ -557,41 +557,8 @@ function showToast(msg) {
 }
 
 // ===== Profile Tab =====
-let _profilePlans  = [];
-let _activePlanDay = 0;
-
-const MEAL_PLAN_ORDER = ['breakfast', 'lunch', 'dinner', 'snack'];
-const MEAL_PLAN_META  = {
-  breakfast: { label: 'ארוחת בוקר',   icon: '🌅' },
-  lunch:     { label: 'ארוחת צהריים', icon: '☀️' },
-  dinner:    { label: 'ארוחת ערב',    icon: '🌙' },
-  snack:     { label: 'ביניים',        icon: '🍎' },
-};
 const ACTIVITY_FACTORS = {
   sedentary: 1.2, light: 1.375, moderate: 1.55, active: 1.725, very_active: 1.9,
-};
-// Role-based meal structure: protein source + carb source + extra (vegetable/fruit)
-const MEAL_ROLES = {
-  breakfast: {
-    proteins: ['ביצים', 'מוצרי חלב', 'תוספי ספורט'],
-    carbs:    ['דגנים ולחם', 'ארוחות בית', 'פירות'],
-    extras:   ['פירות'],
-  },
-  lunch: {
-    proteins: ['בשר ועוף', 'דגים ופירות ים', 'קטניות', 'מאכלים ישראליים', 'ארוחות בית'],
-    carbs:    ['דגנים ולחם', 'קטניות', 'ארוחות בית'],
-    extras:   ['ירקות'],
-  },
-  dinner: {
-    proteins: ['בשר ועוף', 'דגים ופירות ים', 'קטניות', 'ארוחות בית'],
-    carbs:    ['דגנים ולחם', 'ירקות'],
-    extras:   ['ירקות'],
-  },
-  snack: {
-    proteins: ['מוצרי חלב', 'אגוזים וזרעים', 'חטיפים בריאים'],
-    carbs:    ['פירות', 'חטיפים בריאים'],
-    extras:   [],
-  },
 };
 
 // ─── Calculations ───
@@ -626,10 +593,8 @@ function calcWater(p) {
 
 // ─── Render ───
 async function renderProfile(el) {
-  const [profile, plans] = await Promise.all([getClientProfile(), getMealPlans()]);
+  const profile = await getClientProfile();
   const p = profile || {};
-  _profilePlans  = plans;
-  _activePlanDay = 0;
   const hasProfile = !!(p.age && p.weight && p.height && p.gender && p.goal);
 
   el.innerHTML = `
@@ -637,11 +602,7 @@ async function renderProfile(el) {
     <div style="padding:0 0 16px">
       <button class="btn btn-primary btn-full" id="saveProfileBtn">💾 שמור ועדכן יעדים</button>
     </div>
-    <div id="profileResults">${hasProfile ? pfResults(p) : ''}</div>
-    <div id="mealPlansSection">${
-      hasProfile && _profilePlans.length ? pfPlansSection() :
-      hasProfile ? '<div class="card"><div class="empty-state">לחץ "שמור" לקבלת תפריטים מותאמים אישית</div></div>' : ''
-    }</div>`;
+    <div id="profileResults">${hasProfile ? pfResults(p) : ''}</div>`;
 
   setupProfileEvents(el);
 }
@@ -757,74 +718,6 @@ function pfResults(p) {
   </div>`;
 }
 
-function pfPlansSection() {
-  return `
-  <div class="card">
-    <div class="section-header">
-      <span class="section-title">תפריטים לדוגמה</span>
-      <button class="btn-icon" id="regenPlansBtn">🔄 צור מחדש</button>
-    </div>
-    <div class="day-tabs">
-      ${_profilePlans.map((pl, i) =>
-        `<button class="day-tab ${i===_activePlanDay?'active':''}" data-day-idx="${i}">${pl.day_label}</button>`).join('')}
-    </div>
-    <div id="planDayContent">${pfDay(_profilePlans[_activePlanDay], _activePlanDay)}</div>
-  </div>`;
-}
-
-function pfDay(plan, planIdx) {
-  if (!plan) return '';
-  const data = plan.plan_data || {};
-  const tot  = MEAL_PLAN_ORDER.reduce((a, m) => {
-    (data[m] || []).forEach(i => { a.cal += i.cal||0; a.protein += i.protein||0; a.carbs += i.carbs||0; a.fat += i.fat||0; a.fiber += i.fiber||0; });
-    return a;
-  }, { cal:0, protein:0, carbs:0, fat:0, fiber:0 });
-  const fiberTarget = Math.round(tot.cal / 1000 * 25);
-  return `
-    <div class="day-totals-bar">
-      <span>סה"כ: <b>${Math.round(tot.cal)}</b> קל׳</span>
-      <span>חלבון: <b>${Math.round(tot.protein)}g</b></span>
-      <span>פחמ׳: <b>${Math.round(tot.carbs)}g</b></span>
-      <span>שומן: <b>${Math.round(tot.fat)}g</b></span>
-      <span class="fiber-total">סיבים: <b>${Math.round(tot.fiber)}g</b> / ${fiberTarget}g</span>
-    </div>
-    ${MEAL_PLAN_ORDER.map(m => pfMealCard(data[m]||[], m, planIdx)).join('')}`;
-}
-
-function pfMealCard(items, meal, planIdx) {
-  const { label, icon } = MEAL_PLAN_META[meal];
-  const tot = items.reduce((a, i) => ({
-    cal:     a.cal     + (i.cal||0),
-    protein: a.protein + (i.protein||0),
-    carbs:   a.carbs   + (i.carbs||0),
-    fat:     a.fat     + (i.fat||0),
-    fiber:   a.fiber   + (i.fiber||0),
-  }), { cal:0, protein:0, carbs:0, fat:0, fiber:0 });
-
-  return `
-    <div class="meal-plan-card">
-      <div class="meal-plan-header">
-        <span class="meal-plan-title">${icon} ${label}</span>
-        <span class="meal-plan-cal">${Math.round(tot.cal)} קל׳</span>
-        <button class="btn btn-ghost btn-sm edit-plan-meal-btn" data-plan-idx="${planIdx}" data-meal="${meal}">ערוך</button>
-      </div>
-      <div class="meal-plan-macros">
-        <span style="color:var(--protein)">חל׳ ${Math.round(tot.protein)}g</span>
-        <span style="color:var(--carbs)">פח׳ ${Math.round(tot.carbs)}g</span>
-        <span style="color:var(--fat)">שו׳ ${Math.round(tot.fat)}g</span>
-        <span style="color:var(--fiber)">סיבים ${Math.round(tot.fiber)}g</span>
-      </div>
-      <div class="meal-plan-items">
-        ${items.length ? items.map(it => `
-          <div class="meal-plan-item">
-            <span class="mpi-name">${it.name}</span>
-            <span class="mpi-grams">${it.grams}g</span>
-            <span class="mpi-macros">${it.protein}g חל׳ · ${it.carbs}g פח׳</span>
-            <span class="mpi-cal">${it.cal} קל׳</span>
-          </div>`).join('') : '<div class="mpi-empty">ריק</div>'}
-      </div>
-    </div>`;
-}
 
 function setupProfileEvents(el) {
   el.addEventListener('click', async e => {
@@ -833,31 +726,6 @@ function setupProfileEvents(el) {
       el.querySelectorAll(`.sel-chip[data-group="${chip.dataset.group}"]`).forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
       return;
-    }
-    const tab = e.target.closest('.day-tab');
-    if (tab) {
-      _activePlanDay = +tab.dataset.dayIdx;
-      el.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('planDayContent').innerHTML = pfDay(_profilePlans[_activePlanDay], _activePlanDay);
-      return;
-    }
-    const editBtn = e.target.closest('.edit-plan-meal-btn');
-    if (editBtn) {
-      openMealEditor(+editBtn.dataset.planIdx, editBtn.dataset.meal);
-      return;
-    }
-    if (e.target.closest('#regenPlansBtn')) {
-      const btn = e.target.closest('#regenPlansBtn');
-      btn.textContent = '⏳'; btn.disabled = true;
-      const pf = await getClientProfile();
-      if (pf) {
-        _profilePlans = generateMealPlans(calcGoalsFromProfile(pf), pf);
-        await saveAllMealPlans(_profilePlans);
-        _activePlanDay = 0;
-        document.getElementById('mealPlansSection').innerHTML = pfPlansSection();
-        showToast('תפריטים חודשו ✓');
-      }
     }
   });
 
@@ -874,11 +742,6 @@ function setupProfileEvents(el) {
     btn.disabled = false; btn.textContent = '💾 שמור ועדכן יעדים';
     if (!saved) { showToast('שגיאה בשמירה'); return; }
     document.getElementById('profileResults').innerHTML = pfResults(pf);
-    if (!_profilePlans.length) {
-      _profilePlans = generateMealPlans(goals, pf);
-      await saveAllMealPlans(_profilePlans);
-    }
-    document.getElementById('mealPlansSection').innerHTML = pfPlansSection();
     showToast('✓ פרופיל נשמר! יעדים עודכנו');
   });
 }
@@ -905,264 +768,3 @@ function readProfileForm(el) {
   };
 }
 
-// ─── Meal plan generation ───
-function mealSplits(p) {
-  const h = p.workout_time ? parseInt(p.workout_time) : -1;
-  if (h >= 5  && h <= 10) return { breakfast:0.20, lunch:0.38, dinner:0.30, snack:0.12 };
-  if (h >= 17 && h <= 21) return { breakfast:0.27, lunch:0.35, dinner:0.26, snack:0.12 };
-  return { breakfast:0.25, lunch:0.35, dinner:0.30, snack:0.10 };
-}
-
-function generateMealPlans(goals, p) {
-  const foods  = getFoods();
-  const splits = mealSplits(p);
-  return [1, 2, 3].map((dayNum, dayIdx) => ({
-    day_label: `יום ${dayNum}`,
-    plan_data: Object.fromEntries(
-      MEAL_PLAN_ORDER.map((meal, mIdx) => {
-        const targetCal  = Math.round(goals.calories * splits[meal]);
-        const targetProt = Math.round(goals.protein  * splits[meal]);
-        const offset     = dayIdx * 19 + mIdx * 6;
-        return [meal, buildMeal(foods, meal, targetCal, targetProt, offset)];
-      })
-    ),
-  }));
-}
-
-// Fiber estimate factors (per gram of carbs in that food category)
-const FIBER_FACTORS = {
-  'ירקות':          0.28,
-  'פירות':          0.20,
-  'קטניות':         0.32,
-  'דגנים ולחם':     0.13,
-  'אגוזים וזרעים':  0.16,
-  'חטיפים בריאים':  0.10,
-  'ארוחות בית':     0.07,
-  'מאכלים ישראליים':0.06,
-};
-
-// Absolute max grams per category for sensible portion sizes
-const CAT_MAX_GRAMS = {
-  'בשר ועוף':          200,
-  'דגים ופירות ים':    200,
-  'ביצים':             180,
-  'מוצרי חלב':         250,
-  'תוספי ספורט':        60,
-  'דגנים ולחם':        200,
-  'קטניות':            250,
-  'ירקות':             300,
-  'פירות':             250,
-  'אגוזים וזרעים':      50,
-  'שמנים ושומנים':      20,
-  'ממתקים וחטיפים':     80,
-  'קינוחים ודסרטים':   120,
-  'מזון מהיר':         300,
-  'מנות בינלאומיות':   300,
-  'מאכלים ישראליים':   350,
-  'ארוחות בית':        300,
-  'רטבים ותיבול':       25,
-  'מוצרי אפייה':       100,
-};
-
-// Categories that represent a complete meal (protein+carb already included)
-const COMPLETE_MEAL_CATS = new Set(['ארוחות בית', 'מאכלים ישראליים', 'מנות בינלאומיות', 'מזון מהיר']);
-
-// Never pick these as carb/extra — they're not real food choices in that role
-const EXCLUDE_AS_CARB = new Set(['קינוחים ודסרטים', 'ממתקים וחטיפים', 'שמנים ושומנים', 'רטבים ותיבול', 'משקאות', 'תוספי ספורט']);
-
-function rotate(list, offset) {
-  if (!list.length) return [];
-  const i = offset % list.length;
-  return [...list.slice(i), ...list.slice(0, i)];
-}
-
-function clampGrams(grams, food) {
-  const maxG = CAT_MAX_GRAMS[food.category] || Math.round(food.grams * 3.5);
-  const minG = Math.max(10, Math.round(food.grams * 0.35));
-  return Math.max(10, Math.round(Math.min(Math.max(minG, grams), maxG) / 5) * 5);
-}
-
-function makePortion(food, grams) {
-  const ratio = grams / food.grams;
-  const ff    = FIBER_FACTORS[food.category] || 0.02;
-  return {
-    id: food.id, name: food.name, grams,
-    cal:     Math.round(food.cal     * ratio),
-    protein: Math.round(food.protein * ratio * 10) / 10,
-    carbs:   Math.round(food.carbs   * ratio * 10) / 10,
-    fat:     Math.round(food.fat     * ratio * 10) / 10,
-    fiber:   Math.round(food.carbs   * ratio * ff * 10) / 10,
-  };
-}
-
-function buildMeal(allFoods, meal, targetCal, targetProt, offset) {
-  const roles  = MEAL_ROLES[meal];
-  const picked = [];
-
-  // 1. Protein food — scale to supply 70% of meal protein target
-  const protPool = rotate(
-    allFoods.filter(f => roles.proteins.includes(f.category) && f.protein > 0 && f.cal > 0),
-    offset
-  );
-  if (protPool.length) {
-    const pf = protPool[0];
-    const protPerGram  = pf.protein / pf.grams;
-    const neededGrams  = protPerGram > 0 ? (targetProt * 0.70) / protPerGram : pf.grams;
-    picked.push(makePortion(pf, clampGrams(neededGrams, pf)));
-
-    // If it's already a complete meal (rice+chicken, falafel, etc.) stop here
-    if (COMPLETE_MEAL_CATS.has(pf.category)) return picked;
-  }
-
-  // 2. Carb food — fill ~60% of remaining calories; must be carb-dominant, not junk
-  const usedCal1 = picked.reduce((s, i) => s + i.cal, 0);
-  const rem1     = targetCal - usedCal1;
-  if (rem1 > 80) {
-    const carbPool = rotate(
-      allFoods.filter(f =>
-        roles.carbs.includes(f.category) &&
-        f.carbs >= f.protein &&
-        f.cal > 0 &&
-        !EXCLUDE_AS_CARB.has(f.category) &&
-        !picked.some(p => p.id === f.id)
-      ),
-      offset + 8
-    );
-    if (carbPool.length) {
-      const cf = carbPool[0];
-      const calPerGram  = cf.cal / cf.grams;
-      const neededGrams = calPerGram > 0 ? (rem1 * 0.60) / calPerGram : cf.grams;
-      picked.push(makePortion(cf, clampGrams(neededGrams, cf)));
-    }
-  }
-
-  // 3. Extra (vegetable / fruit) — fill remaining; skip if already a complete meal
-  const usedCal2 = picked.reduce((s, i) => s + i.cal, 0);
-  const rem2     = targetCal - usedCal2;
-  if (rem2 > 50 && roles.extras.length) {
-    const extraPool = rotate(
-      allFoods.filter(f =>
-        roles.extras.includes(f.category) &&
-        f.cal > 0 &&
-        !picked.some(p => p.id === f.id)
-      ),
-      offset + 14
-    );
-    if (extraPool.length) {
-      const ef = extraPool[0];
-      const calPerGram  = ef.cal / ef.grams;
-      const neededGrams = calPerGram > 0 ? (rem2 * 0.80) / calPerGram : ef.grams;
-      picked.push(makePortion(ef, clampGrams(neededGrams, ef)));
-    }
-  }
-
-  return picked;
-}
-
-// ─── Meal editor modal ───
-function openMealEditor(planIdx, meal) {
-  const { label, icon } = MEAL_PLAN_META[meal];
-  const plan     = _profilePlans[planIdx];
-  let editItems  = (plan.plan_data[meal] || []).map(i => ({ ...i }));
-  const allFoods = getFoods();
-
-  const overlay = document.createElement('div');
-  overlay.className = 'modal-overlay';
-  overlay.style.display = 'flex';
-  overlay.innerHTML = `
-    <div class="modal" style="max-width:500px;width:calc(100% - 32px)">
-      <div class="modal-header">
-        <h3>${icon} ${label}</h3>
-        <button class="modal-close" id="closeMealEditorBtn">✕</button>
-      </div>
-      <div class="modal-body" style="max-height:72vh;overflow-y:auto">
-        <div id="editorItemsList"></div>
-        <div style="margin-top:14px">
-          <label class="form-label" style="display:block;margin-bottom:6px">הוסף מזון</label>
-          <div class="search-box">
-            <input type="text" class="form-input" id="editorSearchInput" placeholder="חפש מזון..."/>
-            <span class="search-icon">🔍</span>
-          </div>
-          <div id="editorSearchResults" class="editor-search-results"></div>
-        </div>
-        <button class="btn btn-primary btn-full" id="saveMealEditBtn" style="margin-top:14px">שמור ארוחה</button>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-
-  function refreshList() {
-    const listEl = document.getElementById('editorItemsList');
-    if (!listEl) return;
-    listEl.innerHTML = editItems.length
-      ? editItems.map((item, i) => `
-          <div class="editor-item">
-            <span class="editor-item-name">${item.name}</span>
-            <input type="number" class="form-input editor-grams-input" value="${item.grams}" min="1" data-idx="${i}"/>
-            <span class="editor-item-unit">g</span>
-            <span class="editor-item-cal" id="ecal-${i}">${item.cal} קל׳</span>
-            <button class="editor-remove-btn" data-idx="${i}">✕</button>
-          </div>`).join('')
-      : '<div class="mpi-empty" style="padding:12px 0">הוסף פריטים מהחיפוש למטה</div>';
-
-    listEl.querySelectorAll('.editor-remove-btn').forEach(btn => {
-      btn.addEventListener('click', () => { editItems.splice(+btn.dataset.idx, 1); refreshList(); });
-    });
-    listEl.querySelectorAll('.editor-grams-input').forEach(input => {
-      input.addEventListener('change', () => {
-        const i       = +input.dataset.idx;
-        const newG    = Math.max(1, +input.value || editItems[i].grams);
-        const orig    = allFoods.find(f => f.id === editItems[i].id);
-        const base    = orig || editItems[i];
-        const baseG   = orig ? orig.grams : editItems[i].grams;
-        const ratio   = newG / baseG;
-        editItems[i]  = { ...editItems[i], grams: newG,
-          cal:     Math.round(base.cal     * ratio),
-          protein: Math.round(base.protein * ratio * 10) / 10,
-          carbs:   Math.round(base.carbs   * ratio * 10) / 10,
-          fat:     Math.round(base.fat     * ratio * 10) / 10,
-        };
-        const calEl = document.getElementById(`ecal-${i}`);
-        if (calEl) calEl.textContent = `${editItems[i].cal} קל׳`;
-      });
-    });
-  }
-  refreshList();
-
-  document.getElementById('editorSearchInput').addEventListener('input', e => {
-    const q     = e.target.value.trim();
-    const resEl = document.getElementById('editorSearchResults');
-    if (q.length < 2) { resEl.innerHTML = ''; return; }
-    const hits  = allFoods.filter(f => f.name.includes(q)).slice(0, 8);
-    resEl.innerHTML = hits.map(f =>
-      `<div class="editor-search-item" data-fid="${f.id}">
-        <span>${f.name}</span><small>${f.cal} קל׳/${f.grams}g</small>
-      </div>`).join('');
-    resEl.querySelectorAll('.editor-search-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const food = allFoods.find(f => f.id === item.dataset.fid);
-        if (!food) return;
-        editItems.push({ id:food.id, name:food.name, grams:food.grams,
-          cal:     Math.round(food.cal),
-          protein: Math.round(food.protein * 10) / 10,
-          carbs:   Math.round(food.carbs   * 10) / 10,
-          fat:     Math.round(food.fat     * 10) / 10,
-        });
-        refreshList();
-        document.getElementById('editorSearchInput').value = '';
-        document.getElementById('editorSearchResults').innerHTML = '';
-      });
-    });
-  });
-
-  const close = () => overlay.remove();
-  document.getElementById('closeMealEditorBtn').addEventListener('click', close);
-  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-
-  document.getElementById('saveMealEditBtn').addEventListener('click', async () => {
-    _profilePlans[planIdx].plan_data[meal] = editItems;
-    await saveAllMealPlans(_profilePlans);
-    close();
-    document.getElementById('planDayContent').innerHTML = pfDay(_profilePlans[planIdx], planIdx);
-    showToast('ארוחה עודכנה ✓');
-  });
-}
